@@ -103,5 +103,15 @@ namespace WpfCustomControlLibrary
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
+
+        public static readonly DependencyProperty LabelProperty =
+            DependencyProperty.Register("Label", typeof(object), typeof(BreadcrumbItem));
+
+        public object Label
+        {
+            get => GetValue(LabelProperty);
+            set => SetValue(LabelProperty, value);
+        }
+
     }
 }

@@ -118,16 +118,31 @@ set vmTemplate=!vmTemplate!}!NL!
 
 :: 生成Xaml
 set xamlFile=%xamlDir%\%name%.xaml
+if exist "%xamlFile%" (
+    echo "%xamlFile%" 文件已存在，正在退出...
+    pause
+    exit /b 0
+)
 echo 生成 %xamlFile%...
 echo !xamlTemplate! > "%xamlFile%"
 
 :: 生成Xaml.cs
 set xamlCsFile=%xamlDir%\%name%.xaml.cs
+if exist "%xamlCsFile%" (
+    echo "%xamlCsFile%" 文件已存在，正在退出...
+    pause
+    exit /b 0
+)
 echo 生成 %xamlCsFile%...
 echo !xamlCsTemplate! > "%xamlCsFile%"
 
 :: 生成 ViewModel
 set vmFile=%vmDir%\%name%ViewModel.cs
+if exist "%vmFile%" (
+    echo "%vmFile%" 文件已存在，正在退出...
+    pause
+    exit /b 0
+)
 echo 生成 %vmFile%...
 echo !vmTemplate! > "%vmFile%"
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using WpfCustomControlLibrary;
 using WpfDemo.Models;
 
 namespace WpfDemo.ViewModels
@@ -29,6 +28,7 @@ namespace WpfDemo.ViewModels
                     _menuTreeItemForward.Push(SelectedTreeItem);
                     if (_menuTreeItemBack.TryPop(out MenuTreeItem? re))
                     {
+                        //使用前进后退时的页面不记录历史，仅导航当前堆栈内页面
                         _menuTreeIteHistory = null;
                         SelectedTreeItem = re;
                     }
@@ -45,6 +45,7 @@ namespace WpfDemo.ViewModels
                    _menuTreeItemBack.Push(SelectedTreeItem);
                    if (_menuTreeItemForward.TryPop(out MenuTreeItem? re))
                    {
+                       //使用前进后退时的页面不记录历史，仅导航当前堆栈内页面
                        _menuTreeIteHistory = null;
                        SelectedTreeItem = re;
                    }
@@ -85,7 +86,8 @@ namespace WpfDemo.ViewModels
             }
             Breadcrumb.Add(new BreadcrumbItem
             {
-                Content = treeItem?.Label??""
+                Label = treeItem?.Label??"",
+                Command = new AnotherCommandImplementation(_ => { })
             });
         }
 
@@ -112,18 +114,24 @@ namespace WpfDemo.ViewModels
             {
                 try
                 {
-                    SetProperty(ref _selectedTreeItem, value);
-                    if (_selectedTreeItem != null && !_menuTreeItemBack.Any(r => r.Guid.Equals(_selectedTreeItem.Guid)))
+                    if (_selectedTreeItem != value)
                     {
-                        if (_menuTreeIteHistory != null)
+                        SetProperty(ref _selectedTreeItem, value);
+                        if (_selectedTreeItem != null)
                         {
-                            _menuTreeItemBack.Push(_menuTreeIteHistory);
+                            //当前页的上一页作为历史记录放入历史记录堆栈
+                            if (_menuTreeIteHistory != null)
+                            {
+                                _menuTreeItemBack.Push(_menuTreeIteHistory);
+                            }
+                            //存放当前页的上一页作为历史记录
+                            _menuTreeIteHistory = _selectedTreeItem;
                         }
-                        _menuTreeIteHistory = _selectedTreeItem;
+                        SetBreadcrumb();
                     }
-                    SetBreadcrumb();
+
                 }
-                catch (Exception e)
+                catch
                 {
 
                 }

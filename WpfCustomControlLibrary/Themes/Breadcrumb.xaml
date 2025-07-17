@@ -23,17 +23,18 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemTemplate">
+        <!--<Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <ContentControl Content="{Binding}" />
+                        <local:BreadcrumbItem Label="{Binding Label}" />
                     </StackPanel>
                 </DataTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
+                <!--  透传Separator  -->
                 <Style TargetType="{x:Type local:BreadcrumbItem}">
                     <Setter Property="Separator" Value="{Binding Path=Separator, RelativeSource={RelativeSource AncestorType={x:Type local:Breadcrumb}}}" />
                 </Style>
@@ -65,13 +66,12 @@
                                 AutomationProperties.Name="BreadcrumbItem"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Command="{TemplateBinding Command}"
-                                Content="{TemplateBinding Content}"
+                                Command="{Binding Command}"
+                                Content="{Binding Label}"
                                 FontSize="16"
                                 FontWeight="Normal"
                                 Style="{StaticResource MaterialDesignPaperLightButton}" />
                         </Grid>
-
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
