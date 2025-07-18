@@ -202,7 +202,7 @@
                 <!--  内容  -->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80" />
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Vertical">
@@ -254,15 +254,15 @@
                             BorderThickness="0,0,0,1" />
                     </StackPanel>
                     <!--  用户页面  -->
-                    <ScrollViewer
-                        x:Name="MainScrollViewer"
-                        Grid.Row="1"
-                        Width="auto">
-                        <ContentControl
-                            Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"
-                            DataContext="{Binding SelectedTreeItem}"
-                            DataContextChanged="OnSelectedItemChanged" />
-                    </ScrollViewer>
+                    <Border Grid.Row="1" Padding="10">
+                        <ScrollViewer x:Name="MainScrollViewer" Width="auto">
+                            <ContentControl
+                                Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"
+                                DataContext="{Binding SelectedTreeItem}"
+                                DataContextChanged="OnSelectedItemChanged" />
+                        </ScrollViewer>
+                    </Border>
+
                 </Grid>
 
 

@@ -103,11 +103,11 @@ set vmTemplate=!vmTemplate!!NL!
 set vmTemplate=!vmTemplate!        /// ^<summary^> !NL!
 set vmTemplate=!vmTemplate!        /// 响应式集合!NL!
 set vmTemplate=!vmTemplate!        /// ^</summary^> !NL!
-set vmTemplate=!vmTemplate!        private ObservableCollection^<object^>   _customList = [];!NL!
+set vmTemplate=!vmTemplate!        private ObservableCollection^<object^> _customList = [];!NL!
 set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        public ObservableCollection^<object^>   CustomList!NL!
+set vmTemplate=!vmTemplate!        public ObservableCollection^<object^> CustomList!NL!
 set vmTemplate=!vmTemplate!        {!NL!
-set vmTemplate=!vmTemplate!            get =^>   _customList;!NL!
+set vmTemplate=!vmTemplate!            get =^> _customList;!NL!
 set vmTemplate=!vmTemplate!            set!NL!
 set vmTemplate=!vmTemplate!            {!NL!
 set vmTemplate=!vmTemplate!                SetProperty(ref _customList, value);!NL!

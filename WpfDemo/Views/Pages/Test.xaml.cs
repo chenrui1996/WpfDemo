@@ -11,7 +11,6 @@ namespace WpfDemo.Views.Pages
         public Test()
         {
             InitializeComponent();
-            DataContext = new TestViewModel();
         }
     }
 }

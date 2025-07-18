@@ -1,4 +1,7 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Autofac;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,11 +23,18 @@ namespace WpfDemo
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IContainer? _container;
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = App.Container?.Resolve<MainViewModel>();
+        }
 
+        public void GetMainViewModel(IServiceProvider serviceProvide)
+        {
+            var mainViewModel = serviceProvide.GetService<MainViewModel>();
+            DataContext = mainViewModel;
         }
 
         private void MenuDarkModeButton_Click(object sender, RoutedEventArgs e)

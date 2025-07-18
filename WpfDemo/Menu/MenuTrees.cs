@@ -6,22 +6,14 @@ namespace WpfDemo.Menu
     {
         public static readonly List<MenuTreeItem> MenuTreeItems =
         [
+            new MenuTreeItem { Label = "首页", ContentType = typeof(Views.Pages.Index) },
             new MenuTreeItem
             {
-                Label = "首页",
-                ContentType = typeof(Views.Pages.Index)
-            },
-            new MenuTreeItem
-            {
-                Label = "测试菜单",
-                Children = 
+                Label = "组件",
+                Children =
                 [
-                    new MenuTreeItem
-                    {
-                        Label = "测试",
-                        ContentType = typeof(Views.Pages.Test)
-                    },
-                ]
+                    new MenuTreeItem { Label = "组件概述", ContentType = typeof(Views.Pages.ControlSummary) },
+                ],
             },
         ];
     }

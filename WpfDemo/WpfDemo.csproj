@@ -10,17 +10,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="LiveCharts.Core" Version="0.9.8" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Msagl" Version="1.1.6" />
+    <PackageReference Include="Microsoft.Msagl.Drawing" Version="1.1.6" />
+    <PackageReference Include="Microsoft.Msagl.GraphViewerGDI" Version="1.1.7" />
+    <PackageReference Include="Msagl.WpfGraphControl" Version="1.2.1" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
-    <PackageReference Include="VirtualizingWrapPanel" Version="2.2.1" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WpfCustomControlLibrary\WpfCustomControlLibrary.csproj">
       <Private></Private>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Asset\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.DwayneNeed">
+      <HintPath>..\..\..\..\Downloads\Microsoft.DwayneNeed\Microsoft.DwayneNeed.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DwayneNeed.Win32">
+      <HintPath>..\..\..\..\Downloads\Microsoft.DwayneNeed\Microsoft.DwayneNeed.Win32.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

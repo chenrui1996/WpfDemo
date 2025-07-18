@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Xml.Linq;
+using Autofac;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfDemo.Models
@@ -68,7 +71,32 @@ namespace WpfDemo.Models
 
         private object? CreateContent(Type contentType)
         {
-            return Activator.CreateInstance(contentType);
+            var content = Activator.CreateInstance(contentType);
+            if (content == null)
+            {
+                return null;
+            }
+
+            string viewModelName = contentType.Name + "ViewModel";
+            Type? viewModelType = Type.GetType("WpfDemo.ViewModels.PageViewModels." + viewModelName);
+            if (viewModelType == null)
+            {
+                return content;
+            }
+
+            var viewModel = App.Container?.Resolve(viewModelType);
+            if (viewModel == null)
+            {
+                return content;
+            }
+
+            if(content is System.Windows.Controls.UserControl userControl)
+            {
+                userControl.DataContext = viewModel;
+                return userControl;
+            }
+
+            return content;
         }
     }
 }
