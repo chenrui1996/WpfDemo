@@ -3,41 +3,43 @@ using WpfDemo.Services;
 
 namespace WpfDemo.ViewModels.PageViewModels
 {
-    public class TestViewModel : ViewModelBase
+    public class Test2ViewModel : ViewModelBase
     {
-        private TestService _service;
-
-        public TestViewModel(TestService service)
+        private Test2Service _service;
+        public Test2ViewModel(Test2Service service)
         {
             _service = service;
-            CustomCommand = new AnotherCommandImplementation(_ => { });
-            CustomProp = _service.Test();
+            CustomCommand = new AnotherCommandImplementation(_ =>  { });
         }
 
-        /// <summary>
+        /// <summary> 
         /// 指令
-        /// </summary>
+        /// </summary> 
         public AnotherCommandImplementation CustomCommand { get; }
 
-        /// <summary>
+        /// <summary> 
         /// 响应式属性
-        /// </summary>
+        /// </summary> 
         private string? _customProp;
         public string? CustomProp
         {
-            get => _customProp;
-            set => SetProperty(ref _customProp, value);
+            get =>   _customProp;
+            set =>   SetProperty(ref _customProp, value);
         }
 
-        /// <summary>
+        /// <summary> 
         /// 响应式集合
-        /// </summary>
+        /// </summary> 
         private ObservableCollection<object> _customList = [];
 
         public ObservableCollection<object> CustomList
         {
             get => _customList;
-            set { SetProperty(ref _customList, value); }
+            set
+            {
+                SetProperty(ref _customList, value);
+            }
         }
     }
 }
+ 

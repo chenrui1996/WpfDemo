@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Asset\" />
+    <Folder Include="Services\PageServices\" />
   </ItemGroup>
 
   <ItemGroup>

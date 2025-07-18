@@ -12,9 +12,15 @@ namespace WpfDemo.Menu
                 Label = "组件",
                 Children =
                 [
-                    new MenuTreeItem { Label = "组件概述", ContentType = typeof(Views.Pages.ControlSummary) },
+                    new MenuTreeItem
+                    {
+                        Label = "组件概述",
+                        ContentType = typeof(Views.Pages.ControlSummary),
+                    },
                 ],
             },
+            new MenuTreeItem { Label = "Test", ContentType = typeof(Views.Pages.Test) },
+            new MenuTreeItem { Label = "Test2", ContentType = typeof(Views.Pages.Test2) },
         ];
     }
 }

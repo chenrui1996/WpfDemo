@@ -11,10 +11,12 @@ if "%name%"=="" (
 :: 配置输出目录（根据你项目实际路径调整）
 set xamlDir=.\Views\Pages
 set vmDir=.\ViewModels\PageViewModels
+set serviceDir=.\Services\PageServices
 
 :: 检查目录是否存在，不存在就创建
 if not exist "%xamlDir%" mkdir "%xamlDir%"
 if not exist "%vmDir%" mkdir "%vmDir%"
+if not exist "%serviceDir%" mkdir "%serviceDir%"
 
 :: XAML 模板内容
 set projectName=WpfDemo
@@ -68,20 +70,23 @@ set xamlCsTemplate=!xamlCsTemplate!    {!NL!
 set xamlCsTemplate=!xamlCsTemplate!        public %name%()!NL!
 set xamlCsTemplate=!xamlCsTemplate!        {!NL!
 set xamlCsTemplate=!xamlCsTemplate!            InitializeComponent();!NL!
-set xamlCsTemplate=!xamlCsTemplate!            DataContext = new %name%ViewModel();!NL!
 set xamlCsTemplate=!xamlCsTemplate!        }!NL!
 set xamlCsTemplate=!xamlCsTemplate!    }!NL!
 set xamlCsTemplate=!xamlCsTemplate!}!NL!
 
 :: ViewModel 模板内容
 set vmTemplate=using System.Collections.ObjectModel;!NL!
+set vmTemplate=!vmTemplate!using %projectName%.Services;!NL!
 set vmTemplate=!vmTemplate!!NL!
 set vmTemplate=!vmTemplate!namespace %projectName%.ViewModels.PageViewModels!NL!
 set vmTemplate=!vmTemplate!{!NL!
 set vmTemplate=!vmTemplate!    public class %name%ViewModel : ViewModelBase!NL!
 set vmTemplate=!vmTemplate!    {!NL!
-set vmTemplate=!vmTemplate!        public %name%ViewModel()!NL!
+set vmTemplate=!vmTemplate!        private %name%Service _service;
+set vmTemplate=!vmTemplate!!NL!
+set vmTemplate=!vmTemplate!        public %name%ViewModel(%name%Service service)!NL!
 set vmTemplate=!vmTemplate!        {!NL!
+set vmTemplate=!vmTemplate!            _service = service;!NL!
 set vmTemplate=!vmTemplate!            CustomCommand = new AnotherCommandImplementation(_ =^>  { });!NL!
 set vmTemplate=!vmTemplate!        }!NL!
 set vmTemplate=!vmTemplate!!NL!
@@ -93,8 +98,8 @@ set vmTemplate=!vmTemplate!!NL!
 set vmTemplate=!vmTemplate!        /// ^<summary^> !NL!
 set vmTemplate=!vmTemplate!        /// 响应式属性!NL!
 set vmTemplate=!vmTemplate!        /// ^</summary^> !NL!
-set vmTemplate=!vmTemplate!        private int _customProp;!NL!
-set vmTemplate=!vmTemplate!        public int CustomProp!NL!
+set vmTemplate=!vmTemplate!        private string? _customProp;!NL!
+set vmTemplate=!vmTemplate!        public string? CustomProp!NL!
 set vmTemplate=!vmTemplate!        {!NL!
 set vmTemplate=!vmTemplate!            get =^>   _customProp;!NL!
 set vmTemplate=!vmTemplate!            set =^>   SetProperty(ref _customProp, value);!NL!
@@ -115,6 +120,16 @@ set vmTemplate=!vmTemplate!            }!NL!
 set vmTemplate=!vmTemplate!        }!NL!
 set vmTemplate=!vmTemplate!    }!NL!
 set vmTemplate=!vmTemplate!}!NL!
+
+set serviceTemplate=using %projectName%.Models;!NL!
+set serviceTemplate=!serviceTemplate!!NL!
+set serviceTemplate=!serviceTemplate!namespace %projectName%.Services!NL!
+set serviceTemplate=!serviceTemplate!{!NL!
+set serviceTemplate=!serviceTemplate!    public class %name%Service : IDependency!NL!
+set serviceTemplate=!serviceTemplate!    {!NL!
+set serviceTemplate=!serviceTemplate!        public %name%Service() { }!NL!
+set serviceTemplate=!serviceTemplate!    }!NL!
+set serviceTemplate=!serviceTemplate!}!NL!
 
 :: 生成Xaml
 set xamlFile=%xamlDir%\%name%.xaml
@@ -146,9 +161,20 @@ if exist "%vmFile%" (
 echo 生成 %vmFile%...
 echo !vmTemplate! > "%vmFile%"
 
+:: 生成 Service
+set serviceFile=%serviceDir%\%name%Service.cs
+if exist "%serviceFile%" (
+    echo "%serviceFile%" 文件已存在，正在退出...
+    pause
+    exit /b 0
+)
+echo 生成 %serviceFile%...
+echo !serviceTemplate! > "%serviceFile%"
+
 echo.
 echo 生成结束 请在Menu\MenuTrees.cs 添加路径后重新生成代码
 echo XAML 	   : %xamlFile%
 echo XAML.cs   : %xamlCsFile%
 echo ViewModel : %vmFile%
+echo Service : %serviceFile%
 pause
