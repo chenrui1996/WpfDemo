@@ -28,7 +28,6 @@
             <!--  左侧菜单  -->
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="220">
-                    <!--<materialDesign:TreeListView ItemsSource="{Binding MenuTree}" />-->
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="70" />
@@ -151,7 +150,6 @@
                                     Margin="10,0,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    AutomationProperties.Name="Material Design In XAML Toolkit"
                                     FontSize="22"
                                     Text="WPF Demo" />
                             </StackPanel>

@@ -1,5 +1,10 @@
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Forms;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.GraphViewerGdi;
 
 namespace WpfDemo.ViewModels.PageViewModels
 {
@@ -7,14 +12,14 @@ namespace WpfDemo.ViewModels.PageViewModels
     {
         public IndexViewModel()
         {
-            CustomCommand = new AnotherCommandImplementation(_ => { });
+            SaveAsSVG = new RelayCommand(ExportToSvg);
             Graph = DrawGraph();
         }
 
         /// <summary>
         /// 指令
         /// </summary>
-        public AnotherCommandImplementation CustomCommand { get; }
+        public ICommand SaveAsSVG { get; }
 
         /// <summary>
         /// 响应式属性
@@ -50,12 +55,12 @@ namespace WpfDemo.ViewModels.PageViewModels
             var graph = new Graph();
             var inheritEdges = new[]
             {
-                ("MyApp", "View"),
-                ("MyApp", "Converters"),
-                ("MyApp", "ViewModel"),
-                ("MyApp", "Model"),
-                ("MyApp", "Services"),
-                ("MyApp", "Data"),
+                ("MyWPFApp", "View"),
+                ("MyWPFApp", "ViewModel"),
+                ("MyWPFApp", "Converters(数据转换)"),
+                ("MyWPFApp", "Model"),
+                ("MyWPFApp", "Services"),
+                ("MyWPFApp", "Data"),
                 //View
                 ("View", "XAML(UI)"),
                 ("View", "XAML.cs(交互)"),
@@ -84,7 +89,7 @@ namespace WpfDemo.ViewModels.PageViewModels
                 ("XAML.cs(交互)", "DataContext(ViewModel)"),
                 ("XAML.cs(交互)", "Lifecycle Handle"),
                 //ViewModel
-                ("ViewModel", "DependencyProperty"),
+                ("ViewModel", "Dependency Property"),
                 ("ViewModel", "Command"),
                 ("ViewModel", "Services Call"),
                 //Command
@@ -109,6 +114,7 @@ namespace WpfDemo.ViewModels.PageViewModels
             {
                 node.Attr.Shape = Shape.Box;
                 node.Attr.FillColor = Color.LightBlue;
+                node.Attr.Padding = 10;
             }
 
             foreach (var edge in graph.Edges)
@@ -117,6 +123,31 @@ namespace WpfDemo.ViewModels.PageViewModels
             }
 
             return graph;
+        }
+
+        private void ExportToSvg()
+        {
+            if (Graph == null)
+            {
+                return;
+            }
+            // 先执行布局计算
+            var renderer = new GraphRenderer(Graph);
+            renderer.CalculateLayout();
+
+            var dialog = new SaveFileDialog
+            {
+                Filter = "SVG 文件 (*.svg)|*.svg",
+                Title = "保存为 SVG 文件",
+                FileName = "graph.svg",
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var selectedPath = dialog.FileName;
+                using var stream = File.Create(selectedPath);
+                var writer = new SvgGraphWriter(stream, Graph) { Precision = 4 };
+                writer.Write();
+            }
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Autofac;
-using MaterialDesignThemes.Wpf;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 using WpfDemo.CustomControl;
 using WpfDemo.ViewModels;
 
@@ -23,22 +23,14 @@ namespace WpfDemo
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IContainer? _container;
-
         public MainWindow()
         {
             InitializeComponent();
             DataContext = App.Container?.Resolve<MainViewModel>();
         }
 
-        public void GetMainViewModel(IServiceProvider serviceProvide)
-        {
-            var mainViewModel = serviceProvide.GetService<MainViewModel>();
-            DataContext = mainViewModel;
-        }
-
-        private void MenuDarkModeButton_Click(object sender, RoutedEventArgs e)
-            => ModifyTheme(DarkModeToggleButton.IsChecked == true);
+        private void MenuDarkModeButton_Click(object sender, RoutedEventArgs e) =>
+            ModifyTheme(DarkModeToggleButton.IsChecked == true);
 
         private static void ModifyTheme(bool isDarkTheme)
         {
@@ -67,7 +59,7 @@ namespace WpfDemo
         private void TreeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var treeListView = (TreeListView)sender;
-            if(treeListView.SelectedItem != null)
+            if (treeListView.SelectedItem != null)
                 MenuToggleButton.IsChecked = false;
         }
     }

@@ -32,15 +32,13 @@ set xamlTemplate=!xamlTemplate! xmlns="http://schemas.microsoft.com/winfx/2006/x
 set xamlTemplate=!xamlTemplate! xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"!NL!
 set xamlTemplate=!xamlTemplate! xmlns:d="http://schemas.microsoft.com/expression/blend/2008"!NL!
 set xamlTemplate=!xamlTemplate! xmlns:local="clr-namespace:%projectName%.Views.Pages"!NL!
+set xamlTemplate=!xamlTemplate! xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"!NL!
 set xamlTemplate=!xamlTemplate! xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"!NL!
 set xamlTemplate=!xamlTemplate! xmlns:viewmodels="clr-namespace:%projectName%.ViewModels.PageViewModels"!NL!
 set xamlTemplate=!xamlTemplate! d:DataContext="{d:DesignInstance Type=viewmodels:%name%ViewModel}"!NL!
-set xamlTemplate=!xamlTemplate! d:DesignHeight="450"!NL!
-set xamlTemplate=!xamlTemplate! d:DesignWidth="800"!NL!
 set xamlTemplate=!xamlTemplate! mc:Ignorable="d"^>!NL!
 set xamlTemplate=!xamlTemplate!  ^<Grid^> !NL!
 set xamlTemplate=!xamlTemplate!       ^<StackPanel!NL!
-set xamlTemplate=!xamlTemplate!           Grid.Column="1"!NL!
 set xamlTemplate=!xamlTemplate!           HorizontalAlignment="Center"!NL!
 set xamlTemplate=!xamlTemplate!           Orientation="Horizontal"^> !NL!
 set xamlTemplate=!xamlTemplate!           ^<Border Padding="16"^> !NL!
