@@ -1,0 +1,333 @@
+﻿<UserControl
+    x:Class="WpfDemo.Views.Pages.EventHandle"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customcontrollibrary="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfDemo.Views.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:WpfDemo.ViewModels.PageViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:EventHandleViewModel}"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel VerticalAlignment="Top" Orientation="Vertical">
+
+            <GroupBox
+                Margin="0,5"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                FontSize="18"
+                Header="冒泡事件（Bubbling Events）"
+                Style="{StaticResource MaterialDesignGroupBox}">
+                <Grid Height="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Grid.Column="0"
+                        Margin="5,0"
+                        Padding="10"
+                        Background="LightGray">
+
+                        <StackPanel
+                            Margin="10,0"
+                            HorizontalAlignment="Stretch"
+                            Background="{StaticResource MaterialDesign.Brush.Primary.Light}"
+                            Button.Click="StackPanel_GrandParent_ButtonClick">
+                            <TextBlock
+                                Margin="20,10"
+                                Foreground="White"
+                                Text="祖父控件" />
+
+                            <CheckBox
+                                x:Name="GrandParentCheckBox"
+                                Margin="20,10"
+                                Content="是否阻断祖父控件冒泡"
+                                Foreground="White"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
+
+                            <StackPanel
+                                Margin="10,0"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource MaterialDesign.Brush.Primary}"
+                                Button.Click="StackPanel_Parent_ButtonClick">
+
+                                <TextBlock
+                                    Margin="20,10"
+                                    Foreground="White"
+                                    Text="父控件" />
+
+                                <CheckBox
+                                    x:Name="ParentCheckBox"
+                                    Margin="20,10"
+                                    Content="是否阻断父控件冒泡"
+                                    Foreground="White"
+                                    IsChecked="False"
+                                    Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
+
+                                <Button
+                                    Width="200"
+                                    Height="40"
+                                    Margin="10,10"
+                                    HorizontalAlignment="Center"
+                                    Click="Button_Click"
+                                    Content="冒泡测试"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+                                <CheckBox
+                                    x:Name="ButtonCheckBox"
+                                    Margin="0,10"
+                                    HorizontalAlignment="Center"
+                                    Content="是否阻断按钮冒泡"
+                                    Foreground="White"
+                                    IsChecked="False"
+                                    Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Grid.Column="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                        BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" Margin="3">
+                                <Button
+                                    Width="200"
+                                    Click="ClearButton_Click"
+                                    Content="清空日志"
+                                    Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                            </StackPanel>
+                            <ScrollViewer Grid.Row="0" Background="LightGray">
+                                <ListView x:Name="clickEventRecord" />
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox
+                Margin="0,10"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                FontSize="18"
+                Header="隧道事件（Tunneling Events）"
+                Style="{StaticResource MaterialDesignGroupBox}">
+                <Grid Height="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="160" />
+                        </Grid.RowDefinitions>
+
+                        <Border
+                            Grid.Row="0"
+                            Margin="5,0"
+                            Padding="10"
+                            Background="LightGray">
+
+                            <StackPanel
+                                Margin="10,0"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource MaterialDesign.Brush.Primary.Light}"
+                                Button.PreviewMouseDown="StackPanel_Tunneling_GrandParent_ButtonClick">
+                                <TextBlock
+                                    Margin="20,10"
+                                    Foreground="White"
+                                    Text="祖父控件" />
+
+                                <StackPanel
+                                    Margin="10,0"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{StaticResource MaterialDesign.Brush.Primary}"
+                                    Button.PreviewMouseDown="StackPanel_Tunneling_Parent_ButtonClick">
+
+                                    <TextBlock
+                                        Margin="20,10"
+                                        Foreground="White"
+                                        Text="父控件" />
+
+                                    <Button
+                                        Width="200"
+                                        Height="40"
+                                        Margin="10,10"
+                                        HorizontalAlignment="Center"
+                                        Content="隧道测试"
+                                        PreviewMouseDown="Button_Tunneling_Click"
+                                        Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Grid.Row="1">
+                            <materialDesign:Chip
+                                Content="CheckBox放在StackPanal内时，由于 PreviewMouseDown 事件会被父组件优先处理"
+                                Icon="Tip"
+                                Style="{StaticResource MaterialDesignOutlineChip}" />
+                            <materialDesign:Chip
+                                Content="CheckBox的点击会先经过父组件。如果IsChecked则不会传递到子组件从而无法取消选择"
+                                Icon="Tip"
+                                Style="{StaticResource MaterialDesignOutlineChip}" />
+
+                            <CheckBox
+                                x:Name="GrandParentTunnelingCheckBox"
+                                Margin="0"
+                                Content="是否阻断祖父控件冒泡"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignCheckBox}" />
+                            <CheckBox
+                                x:Name="ParentTunnelingCheckBox"
+                                Margin="0"
+                                Content="是否阻断父控件冒泡"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignCheckBox}" />
+                            <CheckBox
+                                x:Name="ButtonTunnelingCheckBox"
+                                Margin="0"
+                                Content="是否阻断按钮冒泡"
+                                IsChecked="False"
+                                Style="{StaticResource MaterialDesignCheckBox}" />
+                        </StackPanel>
+                    </Grid>
+                    <Border
+                        Grid.Column="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                        BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" Margin="3">
+                                <Button
+                                    Width="200"
+                                    Click="ClearButton_Tunneling_Click"
+                                    Content="清空日志"
+                                    Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                            </StackPanel>
+                            <ScrollViewer Grid.Row="0" Background="LightGray">
+                                <ListView x:Name="clickTunnelingEventRecord" />
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox
+                Margin="0,10"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                FontSize="18"
+                Header="直接事件（Direct Events）"
+                Style="{StaticResource MaterialDesignGroupBox}">
+                <StackPanel
+                    Width="400"
+                    Height="240"
+                    Margin="20">
+                    <materialDesign:Chip
+                        Content="直接事件（Direct Events）只监听控件本身"
+                        Icon="Tip"
+                        Style="{StaticResource MaterialDesignOutlineChip}" />
+                    <TextBox
+                        Name="MyTextBox"
+                        Width="400"
+                        Margin="0,15"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        TextChanged="MyTextBox_TextChanged" />
+                    <TextBlock
+                        Name="OutputTextBlock"
+                        Margin="0,15"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Margin="0,10"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                FontSize="18"
+                Header="自定义事件"
+                Style="{StaticResource MaterialDesignGroupBox}">
+                <Grid Height="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Grid.Column="0"
+                        Margin="5,0"
+                        Padding="10"
+                        Background="LightGray">
+                        <StackPanel
+                            Margin="10,0"
+                            HorizontalAlignment="Stretch"
+                            customcontrollibrary:CustomButton.MyClick="StackPanel_Custom_Parent_ButtonClick"
+                            Background="{StaticResource MaterialDesign.Brush.Primary}">
+
+                            <TextBlock
+                                Margin="20,10"
+                                Foreground="White"
+                                Text="父控件" />
+
+                            <customcontrollibrary:CustomButton
+                                Width="300"
+                                Content="自定义按钮（右击触发，冒泡）"
+                                MyClick="MyCustomControl_MyClick"
+                                Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Grid.Column="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                        BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="1" Margin="3">
+
+                                <Button
+                                    Width="200"
+                                    Click="ClearButton_CustomClick"
+                                    Content="清空日志"
+                                    Style="{StaticResource MaterialDesignFlatDarkButton}" />
+                            </StackPanel>
+                            <ScrollViewer Grid.Row="0" Background="LightGray">
+                                <ListView x:Name="customClickEventRecord" />
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

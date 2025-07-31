@@ -1,4 +1,6 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 
 namespace WpfDemo.CustomControl
 {
@@ -10,6 +12,17 @@ namespace WpfDemo.CustomControl
         public CustomMessageDialog()
         {
             InitializeComponent();
+            customGroupBox.Header = "提示";
+        }
+
+        public CustomMessageDialog(string header, Brush? background)
+        {
+            InitializeComponent();
+            customGroupBox.Header = header ?? "提示";
+            if (background != null)
+            {
+                ColorZoneAssist.SetBackground(customGroupBox, background);
+            }
         }
     }
 }

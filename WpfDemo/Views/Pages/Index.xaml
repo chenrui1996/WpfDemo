@@ -17,8 +17,8 @@
     <Grid>
         <GroupBox
             x:Name="indexGroupBox"
-            materialDesign:ColorZoneAssist.Background="Black"
-            materialDesign:ColorZoneAssist.Foreground="White"
+            materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+            materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
             materialDesign:ColorZoneAssist.Mode="Custom"
             FontSize="18"
             Style="{StaticResource MaterialDesignGroupBox}">
@@ -31,9 +31,12 @@
                         FontSize="18"
                         Foreground="White"
                         Text="WPF 概述" />
-                    <Button Command="{Binding SaveAsSVG}" Style="{StaticResource MaterialDesignRaisedButton}">
+                    <Button Command="{Binding SaveAsSVG}" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Height="25" Kind="Downloads" />
+                            <materialDesign:PackIcon
+                                Height="25"
+                                Foreground="White"
+                                Kind="Downloads" />
                             <TextBlock
                                 Margin="6,0,0,0"
                                 HorizontalAlignment="Center"

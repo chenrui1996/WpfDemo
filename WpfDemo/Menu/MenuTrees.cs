@@ -14,7 +14,7 @@ namespace WpfDemo.Menu
                 [
                     new MenuTreeItem
                     {
-                        Label = "视图（UI）",
+                        Label = "XAML (UI)",
                         Children =
                         [
                             new MenuTreeItem
@@ -24,13 +24,45 @@ namespace WpfDemo.Menu
                             },
                             new MenuTreeItem
                             {
-                                Label = "资源",
+                                Label = "资源(Resources)",
                                 ContentType = typeof(Views.Pages.Resources),
                             },
                             new MenuTreeItem
                             {
-                                Label = "模板",
+                                Label = "样式(Style)",
+                                ContentType = typeof(Views.Pages.Style),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "模板(Template)",
                                 ContentType = typeof(Views.Pages.Template),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "触发器(Trigger)",
+                                ContentType = typeof(Views.Pages.Trigger),
+                            },
+                        ],
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "XAML.cs (交互)",
+                        Children =
+                        [
+                            new MenuTreeItem
+                            {
+                                Label = "事件处理(Event)",
+                                ContentType = typeof(Views.Pages.EventHandle),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "控件访问和动态操作(Control)",
+                                ContentType = typeof(Views.Pages.ControlHandle),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "页面生命周期事件(Lifecycle)",
+                                ContentType = typeof(Views.Pages.LifecycleHandle),
                             },
                         ],
                     },

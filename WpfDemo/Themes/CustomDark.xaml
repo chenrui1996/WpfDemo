@@ -1,4 +1,4 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="CustomThemePrimaryBrush" Color="DarkSlateBlue" />
+    <SolidColorBrush x:Key="CustomThemePrimaryBrush" Color="#FF673AB7" />
     <SolidColorBrush x:Key="CustomThemeTextBrush" Color="White" />
 </ResourceDictionary>

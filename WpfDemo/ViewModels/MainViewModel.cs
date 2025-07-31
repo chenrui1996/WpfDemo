@@ -12,11 +12,10 @@ namespace WpfDemo.ViewModels
             //HomePage放在首位
             SelectedTreeItem = _menuTrees.FirstOrDefault();
 
-            HomeCommand = new AnotherCommandImplementation(
-               _ =>
-               {
-                   SelectedTreeItem = _menuTrees.FirstOrDefault();
-               });
+            HomeCommand = new AnotherCommandImplementation(_ =>
+            {
+                SelectedTreeItem = _menuTrees.FirstOrDefault();
+            });
 
             MovePrevCommand = new AnotherCommandImplementation(
                 _ =>
@@ -33,24 +32,40 @@ namespace WpfDemo.ViewModels
                         SelectedTreeItem = re;
                     }
                 },
-                _ => _menuTreeItemBack.Count() > 0);
+                _ => _menuTreeItemBack.Count() > 0
+            );
 
             MoveNextCommand = new AnotherCommandImplementation(
-               _ =>
-               {
-                   if (SelectedTreeItem == null || !_menuTreeItemForward.Any())
-                   {
-                       return;
-                   }
-                   _menuTreeItemBack.Push(SelectedTreeItem);
-                   if (_menuTreeItemForward.TryPop(out MenuTreeItem? re))
-                   {
-                       //使用前进后退时的页面不记录历史，仅导航当前堆栈内页面
-                       _menuTreeIteHistory = null;
-                       SelectedTreeItem = re;
-                   }
-               },
-               _ => _menuTreeItemForward.Count() > 0);
+                _ =>
+                {
+                    if (SelectedTreeItem == null || !_menuTreeItemForward.Any())
+                    {
+                        return;
+                    }
+                    _menuTreeItemBack.Push(SelectedTreeItem);
+                    if (_menuTreeItemForward.TryPop(out MenuTreeItem? re))
+                    {
+                        //使用前进后退时的页面不记录历史，仅导航当前堆栈内页面
+                        _menuTreeIteHistory = null;
+                        SelectedTreeItem = re;
+                    }
+                },
+                _ => _menuTreeItemForward.Count() > 0
+            );
+
+            ClaerHistoryCommand = new AnotherCommandImplementation(
+                _ =>
+                {
+                    _menuTreeItemBack.Clear();
+                    _menuTreeItemForward.Clear();
+                },
+                _ => _menuTreeItemForward.Count() > 0 || _menuTreeItemBack.Count() > 0
+            );
+
+            RefreshCommand = new AnotherCommandImplementation(_ =>
+            {
+                SelectedTreeItem?.Refresh();
+            });
         }
 
         private ObservableCollection<BreadcrumbItem> _breadcrumb = [];
@@ -58,10 +73,7 @@ namespace WpfDemo.ViewModels
         public ObservableCollection<BreadcrumbItem> Breadcrumb
         {
             get => _breadcrumb;
-            set
-            {
-                SetProperty(ref _breadcrumb, value);
-            }
+            set { SetProperty(ref _breadcrumb, value); }
         }
 
         private void SetBreadcrumb()
@@ -84,11 +96,13 @@ namespace WpfDemo.ViewModels
             {
                 SetBreadcrumb(treeItem.Parent);
             }
-            Breadcrumb.Add(new BreadcrumbItem
-            {
-                Label = treeItem?.Label??"",
-                Command = new AnotherCommandImplementation(_ => { })
-            });
+            Breadcrumb.Add(
+                new BreadcrumbItem
+                {
+                    Label = treeItem?.Label ?? "",
+                    Command = new AnotherCommandImplementation(_ => { }),
+                }
+            );
         }
 
         private ObservableCollection<MenuTreeItem> _menuTrees = [];
@@ -97,7 +111,6 @@ namespace WpfDemo.ViewModels
             get => _menuTrees;
             set => SetProperty(ref _menuTrees, value);
         }
-
 
         private int _selectedIndex;
         public int SelectedIndex
@@ -129,13 +142,8 @@ namespace WpfDemo.ViewModels
                         }
                         SetBreadcrumb();
                     }
-
                 }
-                catch
-                {
-
-                }
-                
+                catch { }
             }
         }
 
@@ -151,6 +159,8 @@ namespace WpfDemo.ViewModels
         public AnotherCommandImplementation HomeCommand { get; }
         public AnotherCommandImplementation MovePrevCommand { get; }
         public AnotherCommandImplementation MoveNextCommand { get; }
+        public AnotherCommandImplementation ClaerHistoryCommand { get; }
+        public AnotherCommandImplementation RefreshCommand { get; }
 
         private MenuTreeItem? _menuTreeIteHistory { set; get; }
         private Stack<MenuTreeItem> _menuTreeItemBack { set; get; } = new();

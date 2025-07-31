@@ -1,48 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WpfDemo.ViewModels
+namespace WpfDemo.Models
 {
-    /// <summary>
-    /// No WPF project is complete without it's own version of this.
-    /// </summary>
-    public class AnotherCommandImplementation : ICommand
-    {
-        private readonly Action<object?> _execute;
-        private readonly Func<object?, bool> _canExecute;
-
-        public AnotherCommandImplementation(Action<object?> execute)
-            : this(execute, null) { }
-
-        public AnotherCommandImplementation(
-            Action<object?> execute,
-            Func<object?, bool>? canExecute
-        )
-        {
-            ArgumentNullException.ThrowIfNull(execute);
-
-            _execute = execute;
-            _canExecute = canExecute ?? (x => true);
-        }
-
-        public bool CanExecute(object? parameter) => _canExecute(parameter);
-
-        public void Execute(object? parameter) => _execute(parameter);
-
-        public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public void Refresh()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
-    }
-
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public class Modelbase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

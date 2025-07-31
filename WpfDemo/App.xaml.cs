@@ -26,7 +26,7 @@ namespace WpfDemo
             // 注册服务
             if (DependencyContext.Default != null)
             {
-                DependencyContext
+                _ = DependencyContext
                     .Default.RuntimeLibraries.Where(o => o.Name.StartsWith("WpfDemo"))
                     .Select(o => Assembly.Load(new AssemblyName(o.Name)))
                     .ToArray();

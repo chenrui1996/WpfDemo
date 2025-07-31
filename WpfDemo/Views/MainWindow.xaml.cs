@@ -47,8 +47,7 @@ namespace WpfDemo
             {
                 Message = { Text = ((ButtonBase)sender).Content.ToString() },
             };
-
-            object? result = await DialogHost.Show(messageDialog, "RootDialog");
+            _ = await DialogHost.Show(messageDialog, "RootDialog");
         }
 
         private void OnSelectedItemChanged(object sender, DependencyPropertyChangedEventArgs e)

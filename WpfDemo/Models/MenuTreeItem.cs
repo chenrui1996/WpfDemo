@@ -10,15 +10,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfDemo.Models
 {
-    public partial class MenuTreeItem : ObservableObject
+    public partial class MenuTreeItem : Modelbase
     {
         public Guid Guid { get; set; }
-        public bool Focusable 
-        { 
-            get 
-            { 
-                return !Children.Any(); 
-            } 
+        public bool Focusable
+        {
+            get { return !Children.Any(); }
         }
 
         private string? _label { set; get; }
@@ -64,10 +61,18 @@ namespace WpfDemo.Models
                 {
                     Content = CreateContent(value);
                 }
-            } 
+            }
         }
 
-        public object? Content { set; get; }
+        /// <summary>
+        /// 需要刷新，所以需要双向绑定
+        /// </summary>
+        private object? _content;
+        public object? Content
+        {
+            get => _content;
+            set => SetProperty(ref _content, value);
+        }
 
         private object? CreateContent(Type contentType)
         {
@@ -78,7 +83,9 @@ namespace WpfDemo.Models
             }
 
             string viewModelName = contentType.Name + "ViewModel";
-            Type? viewModelType = Type.GetType("WpfDemo.ViewModels.PageViewModels." + viewModelName);
+            Type? viewModelType = Type.GetType(
+                "WpfDemo.ViewModels.PageViewModels." + viewModelName
+            );
             if (viewModelType == null)
             {
                 return content;
@@ -90,13 +97,21 @@ namespace WpfDemo.Models
                 return content;
             }
 
-            if(content is System.Windows.Controls.UserControl userControl)
+            if (content is System.Windows.Controls.UserControl userControl)
             {
                 userControl.DataContext = viewModel;
                 return userControl;
             }
 
             return content;
+        }
+
+        public void Refresh()
+        {
+            if (ContentType == null)
+                return;
+            Content = null;
+            Content = CreateContent(ContentType);
         }
     }
 }

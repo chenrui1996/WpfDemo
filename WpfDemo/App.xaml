@@ -16,6 +16,8 @@
             </ResourceDictionary.MergedDictionaries>
             <!--  全局资源  -->
             <SolidColorBrush x:Key="MyGlobalBrush" Color="PaleVioletRed" />
+
+
         </ResourceDictionary>
 
     </Application.Resources>

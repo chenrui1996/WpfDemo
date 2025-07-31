@@ -54,8 +54,8 @@
         <StackPanel VerticalAlignment="Top" Orientation="Vertical">
             <GroupBox
                 Height="200"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 FontSize="18"
                 Header="ControlTemplate"
@@ -94,8 +94,8 @@
             <GroupBox
                 Height="300"
                 Margin="0,10,0,0"
-                materialDesign:ColorZoneAssist.Background="Black"
-                materialDesign:ColorZoneAssist.Foreground="White"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
                 materialDesign:ColorZoneAssist.Mode="Custom"
                 FontSize="18"
                 Header="DataTemplate"

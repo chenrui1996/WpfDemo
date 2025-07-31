@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:WpfDemo.Models"
+    xmlns:services1="clr-namespace:WpfDemo.Services"
     xmlns:viewmodels="clr-namespace:WpfDemo.ViewModels"
     Title="MainWindow"
     MinWidth="1200"
@@ -218,6 +219,14 @@
                                 Separator="&gt;" />
                             <StackPanel Grid.Column="1" Orientation="Horizontal">
                                 <Button
+                                    Margin="10,0,0,0"
+                                    Command="{Binding HomeCommand}"
+                                    Content="{materialDesign:PackIcon Kind=Home,
+                                                                      Size=24}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    ToolTip="首页" />
+                                <Button
                                     Margin="0,0,0,0"
                                     Command="{Binding MovePrevCommand}"
                                     Content="{materialDesign:PackIcon Kind=ArrowLeft,
@@ -236,13 +245,22 @@
                                     ToolTip="前进" />
 
                                 <Button
-                                    Margin="10,0,10,0"
-                                    Command="{Binding HomeCommand}"
-                                    Content="{materialDesign:PackIcon Kind=Home,
+                                    Margin="0,0,0,0"
+                                    Command="{Binding ClaerHistoryCommand}"
+                                    Content="{materialDesign:PackIcon Kind=ClearCircle,
                                                                       Size=24}"
                                     Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                                     Style="{StaticResource MaterialDesignToolButton}"
-                                    ToolTip="首页" />
+                                    ToolTip="清除历史记录" />
+
+                                <Button
+                                    Margin="0,0,20,0"
+                                    Command="{Binding RefreshCommand}"
+                                    Content="{materialDesign:PackIcon Kind=Refresh,
+                                                                      Size=24}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    ToolTip="刷新" />
                             </StackPanel>
                         </Grid>
 
@@ -255,17 +273,19 @@
                     <Border Grid.Row="1" Padding="10">
                         <ScrollViewer x:Name="MainScrollViewer" Width="auto">
                             <ContentControl
-                                Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}"
+                                Content="{Binding Content, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, FallbackValue={x:Null}}"
                                 DataContext="{Binding SelectedTreeItem}"
                                 DataContextChanged="OnSelectedItemChanged" />
                         </ScrollViewer>
                     </Border>
-
+                    <!--  全局 Snackbar  -->
+                    <materialDesign:Snackbar
+                        x:Name="GlobalSnackbar"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        MessageQueue="{x:Static services1:GlobalNotifier.MessageQueue}" />
                 </Grid>
-
-
-
-
             </DockPanel>
         </materialDesign:DrawerHost>
 
