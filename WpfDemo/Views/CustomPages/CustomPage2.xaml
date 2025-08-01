@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="WpfDemo.Views.CustomPages.CustomPage2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfDemo.Views.CustomPages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="CustomPage2"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <Border
+            Padding="10"
+            Background="White"
+            BorderBrush="Black"
+            BorderThickness="1">
+            <StackPanel>
+                <TextBlock
+                    Padding="20"
+                    VerticalAlignment="Top"
+                    Background="{DynamicResource MaterialDesign.Brush.Secondary.Dark}"
+                    FontSize="22"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="自定义页面2"
+                    TextAlignment="Center" />
+                <CheckBox
+                    x:Name="MaterialDesignFilledTextBoxTextCountComboBox"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Content="View Text Input Count" />
+                <TextBox
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="This is a limited text area"
+                    MaxLength="40"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+        </Border>
+    </Grid>
+</Page>

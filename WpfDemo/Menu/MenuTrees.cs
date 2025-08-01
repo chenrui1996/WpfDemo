@@ -61,7 +61,7 @@ namespace WpfDemo.Menu
                             },
                             new MenuTreeItem
                             {
-                                Label = "页面生命周期事件(Lifecycle)",
+                                Label = "生命周期事件(Lifecycle)",
                                 ContentType = typeof(Views.Pages.LifecycleHandle),
                             },
                         ],

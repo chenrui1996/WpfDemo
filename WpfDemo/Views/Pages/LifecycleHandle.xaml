@@ -28,7 +28,7 @@
                             VerticalAlignment="Center"
                             FontSize="18"
                             Foreground="White"
-                            Text="控件生命周期" />
+                            Text="控件生命周期(Control/UserControl)" />
                         <Button Command="{Binding SaveAsSVG}" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon
@@ -55,8 +55,8 @@
                     <Border
                         Grid.Column="1"
                         Padding="10"
-                        BorderBrush="Black"
-                        BorderThickness="1">
+                        BorderBrush="DarkGray"
+                        BorderThickness="1,0,0,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" />
@@ -82,11 +82,12 @@
                                 Grid.Row="1"
                                 Height="140"
                                 BorderBrush="Black"
-                                BorderThickness="1">
+                                BorderThickness="0">
                                 <DockPanel
                                     x:Name="customPanel"
                                     Height="120"
-                                    Margin="5" />
+                                    Margin="5"
+                                    Background="White" />
                             </Border>
 
                             <StackPanel Grid.Row="2" Margin="0,10,0,0">
@@ -110,13 +111,94 @@
                                                 Content="清空日志"
                                                 Style="{StaticResource MaterialDesignFlatDarkButton}" />
                                         </StackPanel>
-                                        <ScrollViewer Grid.Row="0" Background="LightGray">
+                                        <ScrollViewer Grid.Row="0">
                                             <ListView x:Name="controlEventRecord" />
                                         </ScrollViewer>
                                     </Grid>
                                 </GroupBox>
                             </StackPanel>
 
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox
+                Height="500"
+                Margin="0,10"
+                materialDesign:ColorZoneAssist.Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                materialDesign:ColorZoneAssist.Mode="Custom"
+                FontSize="18"
+                Style="{StaticResource MaterialDesignGroupBox}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="18"
+                            Foreground="White"
+                            Text="页面生命周期(Page/Window)" />
+                        <Button Command="{Binding SaveAsSVGForPage}" Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Height="25"
+                                    Foreground="White"
+                                    Kind="Downloads" />
+                                <TextBlock
+                                    Margin="6,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    Text="导出" />
+                            </StackPanel>
+                        </Button>
+                        <TextBlock
+                            Margin="10,0,10,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            FontSize="14"
+                            Foreground="White"
+                            Text="页面生命周期与控件类似，唯一不同的是容器（Frame）多了导航（NavigationService）的生命周期" />
+                    </StackPanel>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <msagl:AutomaticGraphLayoutControl Grid.Column="0" Graph="{Binding GraphForPage}" />
+                    <Border
+                        Grid.Column="1"
+                        Padding="10"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Padding="10"
+                                VerticalAlignment="Center"
+                                Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                                Text="示例"
+                                TextAlignment="Center" />
+                            <StackPanel
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Margin="10,0"
+                                    Background="{StaticResource MaterialDesign.Brush.Primary.Dark}"
+                                    Click="ShowCustomWinButton_Click"
+                                    Content="加载自定义页面" />
+                            </StackPanel>
                         </Grid>
                     </Border>
 

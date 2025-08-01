@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using WpfDemo.CustomControl;
 using WpfDemo.Services;
 using WpfDemo.ViewModels.PageViewModels;
+using WpfDemo.Views.CustomPages;
 
 namespace WpfDemo.Views.Pages
 {
@@ -26,6 +27,14 @@ namespace WpfDemo.Views.Pages
                 return;
             }
             _customControl = new CustomControl.CustomControl(controlEventRecord);
+            _customControl.Loaded += (s, e) =>
+            {
+                controlEventRecord.Items.Add("Loaded(Event)");
+            };
+            _customControl.Unloaded += (s, e) =>
+            {
+                controlEventRecord.Items.Add("Unloaded(Event)");
+            };
             customPanel.Children.Add(_customControl);
         }
 
@@ -46,6 +55,11 @@ namespace WpfDemo.Views.Pages
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             controlEventRecord.Items.Clear();
+        }
+
+        private void ShowCustomWinButton_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomWindow().Show();
         }
     }
 }

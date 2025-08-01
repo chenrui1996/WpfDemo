@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Folder Include="Services\PageServices\" />
+    <Folder Include="ViewModels\CustomPageViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CustomPages\CustomPage2.xaml.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 

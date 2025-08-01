@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,51 +13,51 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfDemo.CustomControl
+namespace WpfDemo.Views.CustomPages
 {
     /// <summary>
-    /// CustomControl.xaml 的交互逻辑
+    /// CustomPage1.xaml 的交互逻辑
     /// </summary>
-    public partial class CustomControl : UserControl
+    public partial class CustomPage1 : Page
     {
-        public CustomControl()
+        public CustomPage1()
         {
             InitializeComponent();
         }
 
-        public CustomControl(ListView controlEventRecord)
+        public CustomPage1(ListView pageEventRecord)
         {
-            _controlEventRecord = controlEventRecord;
-            _controlEventRecord?.Items.Add("--构造方法--");
-            _controlEventRecord?.Items.Add("--Befor InitializeComponent--");
+            _pageEventRecord = pageEventRecord;
+            _pageEventRecord?.Items.Add("[CustomPage1]: 构造方法--");
+            _pageEventRecord?.Items.Add("[CustomPage1]: Befor InitializeComponent--");
             InitializeComponent();
-            _controlEventRecord?.Items.Add("--End InitializeComponent--");
+            _pageEventRecord?.Items.Add("[CustomPage1]: End InitializeComponent--");
         }
 
-        private ListView? _controlEventRecord;
+        private ListView? _pageEventRecord;
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            _controlEventRecord?.Items.Add("OnInitialized");
+            _pageEventRecord?.Items.Add("[CustomPage1]: OnInitialized");
         }
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _controlEventRecord?.Items.Add("OnApplyTemplate");
+            _pageEventRecord?.Items.Add("[CustomPage1]: OnApplyTemplate");
         }
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            _controlEventRecord?.Items.Add($"MeasureOverride: Size={availableSize}");
+            _pageEventRecord?.Items.Add($"[CustomPage1]: MeasureOverride: Size={availableSize}");
             // 关键：保持默认行为
             return base.MeasureOverride(availableSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            _controlEventRecord?.Items.Add($"ArrangeOverride: Size={finalSize}");
+            _pageEventRecord?.Items.Add($"[CustomPage1]: ArrangeOverride: Size={finalSize}");
             //return finalSize;
             return base.ArrangeOverride(finalSize);
         }
@@ -66,19 +65,13 @@ namespace WpfDemo.CustomControl
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            _controlEventRecord?.Items.Add($"OnRender");
+            _pageEventRecord?.Items.Add($"[CustomPage1]: OnRender");
         }
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             base.OnRenderSizeChanged(sizeInfo);
-            _controlEventRecord?.Items.Add($"OnRenderSizeChanged: {sizeInfo.NewSize}");
-        }
-
-        protected override void OnVisualParentChanged(DependencyObject e)
-        {
-            base.OnVisualParentChanged(e);
-            _controlEventRecord?.Items.Add("OnVisualParentChanged");
+            _pageEventRecord?.Items.Add($"[CustomPage1]: RenderSizeChanged: {sizeInfo.NewSize}");
         }
     }
 }
