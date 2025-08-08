@@ -66,6 +66,28 @@ namespace WpfDemo.Menu
                             },
                         ],
                     },
+                    new MenuTreeItem
+                    {
+                        Label = "ViewModel",
+                        Children =
+                        [
+                            new MenuTreeItem
+                            {
+                                Label = "响应式属性(Dependency properties)",
+                                ContentType = typeof(Views.Pages.DependencyProperties),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "指令(Command)",
+                                ContentType = typeof(Views.Pages.Command),
+                            },
+                            new MenuTreeItem
+                            {
+                                Label = "CommunityToolkit.Mvvm",
+                                ContentType = typeof(Views.Pages.CommunityToolkit),
+                            },
+                        ],
+                    },
                 ],
             },
             new MenuTreeItem

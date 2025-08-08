@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfDemo.ViewModels
 {
@@ -42,7 +43,9 @@ namespace WpfDemo.ViewModels
         }
     }
 
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : ObservableObject { }
+
+    public abstract class ViewModelBase1 : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

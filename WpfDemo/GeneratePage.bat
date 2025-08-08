@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 :: 提示输入 name
-set /p name=请输入控件/视图的 Name（首字母大写，如 Index）
+set /p name=请输入控件/视图的 Name（双驼峰，如 Index）
 if "%name%"=="" (
   echo Name 不能为空！
   goto :eof

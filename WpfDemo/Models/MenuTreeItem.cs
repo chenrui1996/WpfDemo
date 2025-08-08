@@ -91,7 +91,12 @@ namespace WpfDemo.Models
                 return content;
             }
 
-            var viewModel = App.Container?.Resolve(viewModelType);
+            if (App.Container == null || !App.Container.IsRegistered(viewModelType))
+            {
+                return content;
+            }
+
+            var viewModel = App.Container.Resolve(viewModelType);
             if (viewModel == null)
             {
                 return content;
