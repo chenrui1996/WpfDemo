@@ -12,12 +12,12 @@ namespace WpfDemo.ViewModels
             //HomePage放在首位
             SelectedTreeItem = _menuTrees.FirstOrDefault();
 
-            HomeCommand = new AnotherCommandImplementation(_ =>
+            HomeCommand = new RelayCommandImplementation(_ =>
             {
                 SelectedTreeItem = _menuTrees.FirstOrDefault();
             });
 
-            MovePrevCommand = new AnotherCommandImplementation(
+            MovePrevCommand = new RelayCommandImplementation(
                 _ =>
                 {
                     if (SelectedTreeItem == null || !_menuTreeItemBack.Any())
@@ -35,7 +35,7 @@ namespace WpfDemo.ViewModels
                 _ => _menuTreeItemBack.Count() > 0
             );
 
-            MoveNextCommand = new AnotherCommandImplementation(
+            MoveNextCommand = new RelayCommandImplementation(
                 _ =>
                 {
                     if (SelectedTreeItem == null || !_menuTreeItemForward.Any())
@@ -53,7 +53,7 @@ namespace WpfDemo.ViewModels
                 _ => _menuTreeItemForward.Count() > 0
             );
 
-            ClaerHistoryCommand = new AnotherCommandImplementation(
+            ClaerHistoryCommand = new RelayCommandImplementation(
                 _ =>
                 {
                     _menuTreeItemBack.Clear();
@@ -62,7 +62,7 @@ namespace WpfDemo.ViewModels
                 _ => _menuTreeItemForward.Count() > 0 || _menuTreeItemBack.Count() > 0
             );
 
-            RefreshCommand = new AnotherCommandImplementation(_ =>
+            RefreshCommand = new RelayCommandImplementation(_ =>
             {
                 SelectedTreeItem?.Refresh();
             });
@@ -100,7 +100,7 @@ namespace WpfDemo.ViewModels
                 new BreadcrumbItem
                 {
                     Label = treeItem?.Label ?? "",
-                    Command = new AnotherCommandImplementation(_ => { }),
+                    Command = new RelayCommandImplementation(_ => { }),
                 }
             );
         }
@@ -156,11 +156,11 @@ namespace WpfDemo.ViewModels
             });
         }
 
-        public AnotherCommandImplementation HomeCommand { get; }
-        public AnotherCommandImplementation MovePrevCommand { get; }
-        public AnotherCommandImplementation MoveNextCommand { get; }
-        public AnotherCommandImplementation ClaerHistoryCommand { get; }
-        public AnotherCommandImplementation RefreshCommand { get; }
+        public RelayCommandImplementation HomeCommand { get; }
+        public RelayCommandImplementation MovePrevCommand { get; }
+        public RelayCommandImplementation MoveNextCommand { get; }
+        public RelayCommandImplementation ClaerHistoryCommand { get; }
+        public RelayCommandImplementation RefreshCommand { get; }
 
         private MenuTreeItem? _menuTreeIteHistory { set; get; }
         private Stack<MenuTreeItem> _menuTreeItemBack { set; get; } = new();

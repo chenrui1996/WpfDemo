@@ -1,5 +1,5 @@
-﻿using Microsoft.Msagl.Drawing;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using Microsoft.Msagl.Drawing;
 
 namespace WpfDemo.ViewModels.PageViewModels
 {
@@ -7,13 +7,13 @@ namespace WpfDemo.ViewModels.PageViewModels
     {
         public ControlSummaryViewModel()
         {
-            CustomCommand = new AnotherCommandImplementation(_ => { });
+            CustomCommand = new RelayCommandImplementation(_ => { });
         }
 
         /// <summary>
         /// 指令
         /// </summary>
-        public AnotherCommandImplementation CustomCommand { get; }
+        public RelayCommandImplementation CustomCommand { get; }
 
         /// <summary>
         /// 响应式属性
@@ -33,10 +33,7 @@ namespace WpfDemo.ViewModels.PageViewModels
         public ObservableCollection<object>? CustomList
         {
             get => _customList;
-            set
-            {
-                SetProperty(ref _customList, value);
-            }
+            set { SetProperty(ref _customList, value); }
         }
     }
 }

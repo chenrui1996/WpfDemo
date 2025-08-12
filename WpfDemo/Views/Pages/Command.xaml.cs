@@ -3,9 +3,9 @@ using WpfDemo.ViewModels.PageViewModels;
 
 namespace WpfDemo.Views.Pages
 {
-    /// <summary> 
+    /// <summary>
     /// Command.xaml µÄ½»»¥Âß¼­
-    /// </Command> 
+    /// </Command>
     public partial class Command : UserControl
     {
         public Command()
@@ -14,4 +14,3 @@ namespace WpfDemo.Views.Pages
         }
     }
 }
- 

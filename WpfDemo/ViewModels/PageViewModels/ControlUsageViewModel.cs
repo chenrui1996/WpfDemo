@@ -19,7 +19,7 @@ namespace WpfDemo.ViewModels.PageViewModels
         public ControlUsageViewModel(ControlUsageService service)
         {
             _service = service;
-            CustomCommand = new AnotherCommandImplementation(_ => { });
+            CustomCommand = new RelayCommandImplementation(_ => { });
 
             People =
             [
@@ -31,7 +31,7 @@ namespace WpfDemo.ViewModels.PageViewModels
         /// <summary>
         /// 指令
         /// </summary>
-        public AnotherCommandImplementation CustomCommand { get; }
+        public RelayCommandImplementation CustomCommand { get; }
 
         /// <summary>
         /// 响应式属性

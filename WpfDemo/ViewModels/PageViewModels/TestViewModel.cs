@@ -10,14 +10,14 @@ namespace WpfDemo.ViewModels.PageViewModels
         public TestViewModel(TestService service)
         {
             _service = service;
-            CustomCommand = new AnotherCommandImplementation(_ => { });
+            CustomCommand = new RelayCommandImplementation(_ => { });
             CustomProp = _service.Test();
         }
 
         /// <summary>
         /// 指令
         /// </summary>
-        public AnotherCommandImplementation CustomCommand { get; }
+        public RelayCommandImplementation CustomCommand { get; }
 
         /// <summary>
         /// 响应式属性

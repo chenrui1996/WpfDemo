@@ -11,29 +11,26 @@ namespace WpfDemo.Models
     public enum DocumentationLinkType
     {
         PageSource,
-        Specs
+        Specs,
     }
 
     public class CustomLink
     {
         public CustomLink(DocumentationLinkType type, string url)
-            : this(type, url, null)
-        {
-        }
+            : this(type, url, null) { }
 
         public CustomLink(DocumentationLinkType type, string url, string? label)
         {
             Label = label ?? type.ToString();
             Url = url;
             Type = type;
-            Open = new AnotherCommandImplementation(Execute);
+            Open = new RelayCommandImplementation(Execute);
         }
 
-        public static CustomLink PageLink<TDemoPage>()
-            => PageLink<TDemoPage>(null);
+        public static CustomLink PageLink<TDemoPage>() => PageLink<TDemoPage>(null);
 
-        public static CustomLink PageLink<TDemoPage>(string? label)
-            => PageLink<TDemoPage>(label, null);
+        public static CustomLink PageLink<TDemoPage>(string? label) =>
+            PageLink<TDemoPage>(label, null);
 
         public static CustomLink PageLink<TDemoPage>(string? label, string? @namespace)
         {
@@ -42,8 +39,8 @@ namespace WpfDemo.Models
             return new CustomLink(DocumentationLinkType.PageSource, "");
         }
 
-        public static CustomLink SpecsLink(string url, string? label)
-            => new(DocumentationLinkType.Specs, url, label ?? "Specs");
+        public static CustomLink SpecsLink(string url, string? label) =>
+            new(DocumentationLinkType.Specs, url, label ?? "Specs");
 
         public string Label { get; }
 

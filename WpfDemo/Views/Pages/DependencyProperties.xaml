@@ -116,8 +116,9 @@
                             Margin="0,5"
                             materialDesign:HintAssist.Hint="Name"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.UsePopup="True"
                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                            Text="{Binding Name}" />
+                            Text="{Binding Name, ValidatesOnDataErrors=True}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
@@ -129,8 +130,9 @@
                             Margin="0,5"
                             VerticalAlignment="Center"
                             materialDesign:TextFieldAssist.HasClearButton="True"
+                            materialDesign:ValidationAssist.UsePopup="False"
                             Style="{StaticResource MaterialDesignOutlinedNumericUpDown}"
-                            Value="{Binding Age}" />
+                            Value="{Binding Age, ValidatesOnDataErrors=True}" />
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"

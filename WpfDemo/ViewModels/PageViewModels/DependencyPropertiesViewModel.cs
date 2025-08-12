@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using WpfDemo.Services;
 using static WpfDemo.Attributes.CustomDataGridAttributes;
@@ -17,7 +19,7 @@ namespace WpfDemo.ViewModels.PageViewModels
     /// 必须实现 INotifyPropertyChanged，否则修改属性值时无效
     /// </summary>
     [EnableSelection]
-    public class User : INotifyPropertyChanged
+    public class User : INotifyPropertyChanged, INotifyDataErrorInfo
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -26,6 +28,8 @@ namespace WpfDemo.ViewModels.PageViewModels
 
         private string? name;
 
+        [Required(ErrorMessage = "姓名不能为空")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "姓名长度必须在 2 到 20 个字符之间")]
         [GridColumn(IsEditable = true, Label = "姓名")]
         public string? Name
         {
@@ -36,6 +40,7 @@ namespace WpfDemo.ViewModels.PageViewModels
                 {
                     name = value;
                     OnPropertyChanged(nameof(Name));
+                    ValidateProperty(value, nameof(Name));
                     UserStr = ToString();
                 }
             }
@@ -44,6 +49,7 @@ namespace WpfDemo.ViewModels.PageViewModels
         private int age;
 
         [GridColumn(IsEditable = true, Label = "年龄")]
+        [Range(0, 18, ErrorMessage = "年龄必须在 0 到 120 之间")]
         public int Age
         {
             get => age;
@@ -53,6 +59,7 @@ namespace WpfDemo.ViewModels.PageViewModels
                 {
                     age = value;
                     OnPropertyChanged(nameof(Age));
+                    ValidateProperty(value, nameof(Age));
                     UserStr = ToString();
                 }
             }
@@ -98,6 +105,70 @@ namespace WpfDemo.ViewModels.PageViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// 可以放在ModelBase中
+        /// 1. 需要实现INotifyDataErrorInfo接口
+        /// 2. 需要View Binding Name, ValidatesOnDataErrors=True
+        ///
+        /// 过程：
+        ///
+        /// 用户输入 --> TextBox.Text --> Binding --> ViewModel 属性 set
+        ///     ↓
+        /// 执行验证逻辑
+        ///     ↓
+        /// 错误字典更新(_errors[propertyName] = [...])
+        ///     ↓
+        /// 触发 ErrorsChanged 事件
+        ///     ↓
+        /// WPF Binding 收到通知，调用 GetErrors(propertyName)
+        ///     ↓
+        /// Validation.Errors 更新 (控件默认含有 Validation.ErrorTemplate)
+        ///     ↓
+        /// UI(MaterialDesign) 显示或清除错误提示
+        /// ValidationAssist.UsePopup="True" → 气泡提示（错误显示在控件旁边）
+        /// ValidationAssist.UsePopup="False"（默认）→ 错误显示在控件下方
+        ///
+        /// </summary>
+        #region Validation
+        private readonly Dictionary<string, List<string>> _errors = [];
+
+        public bool HasErrors => _errors.Count != 0;
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+        IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                return new List<string>();
+            return _errors.TryGetValue(propertyName, out List<string>? value) ? value : [];
+        }
+
+        private void ValidateProperty(object? value, string propertyName)
+        {
+            ClearErrors(propertyName);
+
+            var context = new ValidationContext(this) { MemberName = propertyName };
+            var results = new List<ValidationResult>();
+
+            if (!Validator.TryValidateProperty(value, context, results))
+            {
+                _errors[propertyName] = results.Select(r => r.ErrorMessage ?? "").ToList();
+                OnErrorsChanged(propertyName);
+            }
+        }
+
+        private void ClearErrors(string propertyName)
+        {
+            if (_errors.Remove(propertyName))
+            {
+                OnErrorsChanged(propertyName);
+            }
+        }
+
+        private void OnErrorsChanged(string propertyName) =>
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+
+        #endregion
     }
 
     public class DependencyPropertiesViewModel : INotifyPropertyChanged

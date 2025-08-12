@@ -41,10 +41,12 @@
 
   <ItemGroup>
     <Reference Include="Microsoft.DwayneNeed">
-      <HintPath>..\..\..\..\Downloads\Microsoft.DwayneNeed\Microsoft.DwayneNeed.dll</HintPath>
+      <HintPath>BuildLib\Microsoft.DwayneNeed.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.DwayneNeed.Win32">
-      <HintPath>..\..\..\..\Downloads\Microsoft.DwayneNeed\Microsoft.DwayneNeed.Win32.dll</HintPath>
+      <HintPath>BuildLib\Microsoft.DwayneNeed.Win32.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
 
