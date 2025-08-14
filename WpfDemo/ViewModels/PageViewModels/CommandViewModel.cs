@@ -29,19 +29,24 @@ namespace WpfDemo.ViewModels.PageViewModels
             });
 
             //Age > 0 时可以执行
-            MinusCommand = new RelayCommand(() => Age--, () => Age > 0);
+            MinusCommand = new RelayCommand(() => Age--);
             //Age < 20 时可以执行
-            PlusCommand = new RelayCommand(() => Age++, () => Age < 20);
+            PlusCommand = new RelayCommand(() => Age++);
 
-            //Age > 0 时可以执行, 其他条件禁用按钮
+            //Age > 0 时可以执行
             MinusCommand1 = new RelayCommand(() => Age1--, () => Age1 > 0);
-            //Age < 20 时可以执行, 其他条件禁用按钮
+            //Age < 20 时可以执行
             PlusCommand1 = new RelayCommand(() => Age1++, () => Age1 < 20);
 
             //Age > 0 时可以执行, 其他条件禁用按钮
-            MinusCommand2 = new RelayCommandImplementation(_ => Age2--, _ => Age2 > 0);
+            MinusCommand2 = new RelayCommand(() => Age2--, () => Age2 > 0);
             //Age < 20 时可以执行, 其他条件禁用按钮
-            PlusCommand2 = new RelayCommandImplementation(_ => Age2++, _ => Age2 < 20);
+            PlusCommand2 = new RelayCommand(() => Age2++, () => Age2 < 20);
+
+            //Age > 0 时可以执行, 其他条件禁用按钮
+            MinusCommand3 = new RelayCommandImplementation(_ => Age3--, _ => Age3 > 0);
+            //Age < 20 时可以执行, 其他条件禁用按钮
+            PlusCommand3 = new RelayCommandImplementation(_ => Age3++, _ => Age3 < 20);
 
             //固定参数
             TestParaCommand = new RelayCommand<string>(TestPara);
@@ -56,39 +61,44 @@ namespace WpfDemo.ViewModels.PageViewModels
         public ICommand CustomCommand { get; }
         public ICommand CustomCommand2 { get; }
 
-        /// <summary>
-        /// 不会通知变更，控件禁用状态无法更新
-        /// </summary>
         [ObservableProperty]
         private int age = 0;
         public ICommand MinusCommand { get; }
         public ICommand PlusCommand { get; }
 
         /// <summary>
-        /// 通知变更，控件禁用在Age变化时更新
+        /// 不会通知变更，控件禁用状态无法更新
         /// </summary>
-        private int _age1 = 0;
-        public int Age1
-        {
-            get => _age1;
-            set
-            {
-                SetProperty(ref _age1, value);
-                //通知变更
-                ((RelayCommand)MinusCommand1).NotifyCanExecuteChanged();
-                ((RelayCommand)PlusCommand1).NotifyCanExecuteChanged();
-            }
-        }
+        [ObservableProperty]
+        private int age1 = 0;
         public ICommand MinusCommand1 { get; }
         public ICommand PlusCommand1 { get; }
+
+        /// <summary>
+        /// 通知变更，控件禁用在Age变化时更新
+        /// </summary>
+        private int _age2 = 0;
+        public int Age2
+        {
+            get => _age2;
+            set
+            {
+                SetProperty(ref _age2, value);
+                //通知变更
+                ((RelayCommand)MinusCommand2).NotifyCanExecuteChanged();
+                ((RelayCommand)PlusCommand2).NotifyCanExecuteChanged();
+            }
+        }
+        public ICommand MinusCommand2 { get; }
+        public ICommand PlusCommand2 { get; }
 
         /// <summary>
         /// 使用封装的RelayCommandImplementation（注册CanExecuteChanged事件）通知变更，控件禁用在Age变化时更新
         /// </summary>
         [ObservableProperty]
-        private int age2 = 0;
-        public ICommand MinusCommand2 { get; }
-        public ICommand PlusCommand2 { get; }
+        private int age3 = 0;
+        public ICommand MinusCommand3 { get; }
+        public ICommand PlusCommand3 { get; }
 
         public ICommand TestParaCommand { get; }
 

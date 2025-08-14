@@ -3,8 +3,10 @@ using System.Configuration;
 using System.Data;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Autofac;
 using Microsoft.Extensions.DependencyModel;
+using WpfDemo.CustomCommands;
 using WpfDemo.Models;
 using WpfDemo.ViewModels;
 

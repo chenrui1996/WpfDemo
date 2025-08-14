@@ -2,6 +2,7 @@
     x:Class="WpfDemo.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customCommands="clr-namespace:WpfDemo.CustomCommands"
     xmlns:customcontrollibrary="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WpfDemo"
@@ -22,6 +23,26 @@
             <ResourceDictionary.MergedDictionaries />
         </ResourceDictionary>
     </Window.Resources>
+    <Window.CommandBindings>
+        <!--  RoutedCommand  -->
+        <CommandBinding
+            CanExecute="SimpleCommand_CanExecute"
+            Command="{x:Static customCommands:TestCustomCommands.SimpleCommand}"
+            Executed="SimpleCommand_Executed" />
+
+        <!--  RoutedCommand  -->
+        <CommandBinding
+            CanExecute="ExitCommand_CanExecute"
+            Command="{x:Static customCommands:TestCustomCommands.ExitCommand}"
+            Executed="ExitCommand_Executed" />
+
+
+        <!--  RoutedUICommand  -->
+        <CommandBinding
+            CanExecute="ShowMessageCommand_CanExecute"
+            Command="{x:Static customCommands:TestCustomCommands.ShowMessageCommand}"
+            Executed="ShowMessageCommand_Executed" />
+    </Window.CommandBindings>
     <!--  根节点  -->
     <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
         <!--  抽屉菜单  -->
@@ -186,7 +207,7 @@
                                             VerticalAlignment="Center"
                                             Background="DarkRed"
                                             Click="MenuPopupButton_OnClick"
-                                            Content="退出"
+                                            Content="退出(Ctrl+E)"
                                             Foreground="White"
                                             Style="{StaticResource MaterialDesignFlatLightBgButton}" />
                                     </Grid>
