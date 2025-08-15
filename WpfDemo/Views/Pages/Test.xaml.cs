@@ -1,11 +1,11 @@
-ï»¿using System.Windows.Controls;
+using System.Windows.Controls;
 using WpfDemo.ViewModels.PageViewModels;
 
 namespace WpfDemo.Views.Pages
 {
-    /// <summary>
-    /// Test.xaml çš„äº¤äº’é€»è¾‘
-    /// </Test>
+    /// <summary> 
+    /// Test.xaml µÄ½»»¥Âß¼­
+    /// </Test> 
     public partial class Test : UserControl
     {
         public Test()
@@ -14,3 +14,4 @@ namespace WpfDemo.Views.Pages
         }
     }
 }
+ 

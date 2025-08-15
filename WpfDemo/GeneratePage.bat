@@ -73,49 +73,28 @@ set xamlCsTemplate=!xamlCsTemplate!    }!NL!
 set xamlCsTemplate=!xamlCsTemplate!}!NL!
 
 :: ViewModel 模板内容
-set vmTemplate=using System.Collections.ObjectModel;!NL!
+set vmTemplate=using CommunityToolkit.Mvvm.ComponentModel;!NL!
+set vmTemplate=!vmTemplate!using CommunityToolkit.Mvvm.Input;!NL!
+set vmTemplate=!vmTemplate!using System.Collections.ObjectModel;!NL!
 set vmTemplate=!vmTemplate!using %projectName%.Services;!NL!
 set vmTemplate=!vmTemplate!!NL!
 set vmTemplate=!vmTemplate!namespace %projectName%.ViewModels.PageViewModels!NL!
 set vmTemplate=!vmTemplate!{!NL!
-set vmTemplate=!vmTemplate!    public class %name%ViewModel : ViewModelBase!NL!
+set vmTemplate=!vmTemplate!    public partial class %name%ViewModel(%name%Service service) : ViewModelBase!NL!
 set vmTemplate=!vmTemplate!    {!NL!
-set vmTemplate=!vmTemplate!        private %name%Service _service;
+set vmTemplate=!vmTemplate!         private readonly %name%Service _service = service;!NL!
 set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        public %name%ViewModel(%name%Service service)!NL!
-set vmTemplate=!vmTemplate!        {!NL!
-set vmTemplate=!vmTemplate!            _service = service;!NL!
-set vmTemplate=!vmTemplate!            CustomCommand = new AnotherCommandImplementation(_ =^>  { });!NL!
-set vmTemplate=!vmTemplate!        }!NL!
+set vmTemplate=!vmTemplate!         ^[RelayCommand^]!NL!
+set vmTemplate=!vmTemplate!         private void YourMethod(string? para)!NL!
+set vmTemplate=!vmTemplate!         {!NL!
+set vmTemplate=!vmTemplate!             //TODO!NL!
+set vmTemplate=!vmTemplate!         }!NL!
 set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        /// ^<summary^> !NL!
-set vmTemplate=!vmTemplate!        /// 指令!NL!
-set vmTemplate=!vmTemplate!        /// ^</summary^> !NL!
-set vmTemplate=!vmTemplate!        public AnotherCommandImplementation CustomCommand { get; }!NL!
+set vmTemplate=!vmTemplate!         ^[ObservableProperty^]!NL!
+set vmTemplate=!vmTemplate!         private string? customProp;!NL!
 set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        /// ^<summary^> !NL!
-set vmTemplate=!vmTemplate!        /// 响应式属性!NL!
-set vmTemplate=!vmTemplate!        /// ^</summary^> !NL!
-set vmTemplate=!vmTemplate!        private string? _customProp;!NL!
-set vmTemplate=!vmTemplate!        public string? CustomProp!NL!
-set vmTemplate=!vmTemplate!        {!NL!
-set vmTemplate=!vmTemplate!            get =^>   _customProp;!NL!
-set vmTemplate=!vmTemplate!            set =^>   SetProperty(ref _customProp, value);!NL!
-set vmTemplate=!vmTemplate!        }!NL!
-set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        /// ^<summary^> !NL!
-set vmTemplate=!vmTemplate!        /// 响应式集合!NL!
-set vmTemplate=!vmTemplate!        /// ^</summary^> !NL!
-set vmTemplate=!vmTemplate!        private ObservableCollection^<object^> _customList = [];!NL!
-set vmTemplate=!vmTemplate!!NL!
-set vmTemplate=!vmTemplate!        public ObservableCollection^<object^> CustomList!NL!
-set vmTemplate=!vmTemplate!        {!NL!
-set vmTemplate=!vmTemplate!            get =^> _customList;!NL!
-set vmTemplate=!vmTemplate!            set!NL!
-set vmTemplate=!vmTemplate!            {!NL!
-set vmTemplate=!vmTemplate!                SetProperty(ref _customList, value);!NL!
-set vmTemplate=!vmTemplate!            }!NL!
-set vmTemplate=!vmTemplate!        }!NL!
+set vmTemplate=!vmTemplate!         ^[ObservableProperty^]!NL!
+set vmTemplate=!vmTemplate!         private ObservableCollection^<object^> customList = ^[^];!NL!
 set vmTemplate=!vmTemplate!    }!NL!
 set vmTemplate=!vmTemplate!}!NL!
 

@@ -1,43 +1,25 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using WpfDemo.Services;
 
 namespace WpfDemo.ViewModels.PageViewModels
 {
-    public class TestViewModel : ViewModelBase
+    public partial class TestViewModel(TestService service) : ViewModelBase
     {
-        private TestService _service;
+         private readonly TestService _service = service;
 
-        public TestViewModel(TestService service)
-        {
-            _service = service;
-            CustomCommand = new RelayCommandImplementation(_ => { });
-            CustomProp = _service.Test();
-        }
+         [RelayCommand]
+         private void YourMethod(string? para)
+         {
+             //TODO
+         }
 
-        /// <summary>
-        /// 指令
-        /// </summary>
-        public RelayCommandImplementation CustomCommand { get; }
+         [ObservableProperty]
+         private string? customProp;
 
-        /// <summary>
-        /// 响应式属性
-        /// </summary>
-        private string? _customProp;
-        public string? CustomProp
-        {
-            get => _customProp;
-            set => SetProperty(ref _customProp, value);
-        }
-
-        /// <summary>
-        /// 响应式集合
-        /// </summary>
-        private ObservableCollection<object> _customList = [];
-
-        public ObservableCollection<object> CustomList
-        {
-            get => _customList;
-            set { SetProperty(ref _customList, value); }
-        }
+         [ObservableProperty]
+         private ObservableCollection<object> customList = [];
     }
 }
+ 

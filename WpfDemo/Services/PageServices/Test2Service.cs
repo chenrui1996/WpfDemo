@@ -2,10 +2,9 @@ using WpfDemo.Models;
 
 namespace WpfDemo.Services
 {
-    public interface IService { }
-
-    public class Test2Service : IService, IDependency
+    public class Test2Service : IDependency
     {
         public Test2Service() { }
     }
 }
+ 
