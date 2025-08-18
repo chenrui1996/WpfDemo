@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Windows;
 using WpfDemo.Services;
 
 namespace WpfDemo.ViewModels.PageViewModels
@@ -10,9 +11,10 @@ namespace WpfDemo.ViewModels.PageViewModels
          private readonly Test2Service _service = service;
 
          [RelayCommand]
-         private void YourMethod(string? para)
+         private void TestMethod(string? para)
          {
-             //TODO
+            //TODO
+            MessageBox.Show(_service.GetInfo());
          }
 
          [ObservableProperty]

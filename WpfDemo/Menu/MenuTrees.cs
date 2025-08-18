@@ -88,6 +88,11 @@ namespace WpfDemo.Menu
                             },
                         ],
                     },
+                    new MenuTreeItem
+                    {
+                        Label = "转换器(Converts)",
+                        ContentType = typeof(Views.Pages.Converters),
+                    },
                 ],
             },
             new MenuTreeItem
