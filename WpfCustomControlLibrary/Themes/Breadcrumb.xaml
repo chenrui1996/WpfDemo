@@ -9,13 +9,17 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type local:Breadcrumb}">
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:Breadcrumb}">
+                    <!--  ItemsPresenter 是 ItemsControl 的核心，用于呈现 Items  -->
                     <ItemsPresenter />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <!--  默认的 ItemsPanel  -->
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -23,7 +27,7 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Setter Property="ItemTemplate">
+        <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -31,7 +35,7 @@
                     </StackPanel>
                 </DataTemplate>
             </Setter.Value>
-        </Setter>-->
+        </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <!--  透传Separator  -->

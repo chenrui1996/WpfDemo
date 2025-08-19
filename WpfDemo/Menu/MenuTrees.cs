@@ -105,6 +105,21 @@ namespace WpfDemo.Menu
                         Label = "组件概述",
                         ContentType = typeof(Views.Pages.ControlSummary),
                     },
+                    new MenuTreeItem
+                    {
+                        Label = "组合控件（UserControl）",
+                        ContentType = typeof(Views.Pages.UserControlDemo),
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "扩展控件（基于现有控件）",
+                        ContentType = typeof(Views.Pages.ExtendedControlDemo),
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "自定义控件（CustomControl）",
+                        ContentType = typeof(Views.Pages.CustomControlDemo),
+                    },
                 ],
             },
             new MenuTreeItem

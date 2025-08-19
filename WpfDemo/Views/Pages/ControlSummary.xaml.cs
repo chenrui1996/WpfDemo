@@ -174,8 +174,12 @@ namespace WpfDemo.Views.Pages
             var edges = new[]
             {
                 ("UIElement", "FrameworkElement"),
+                ("FrameworkElement", "Page"),
                 ("FrameworkElement", "Control"),
                 ("Control", "ContentControl"),
+                ("ContentControl", "Window"),
+                ("ContentControl", "NavigationWindow"),
+                ("ContentControl", "Frame"),
                 ("ContentControl", "HeaderedContentControl"),
                 ("Control", "ItemsControl"),
                 ("ItemsControl", "Selector"),

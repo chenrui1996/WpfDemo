@@ -199,7 +199,7 @@ namespace WpfDemo.ViewModels.PageViewModels
                 if (name != value)
                 {
                     name = value;
-                    OnPropertyChanged(nameof(name));
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }

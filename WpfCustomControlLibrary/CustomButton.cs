@@ -57,7 +57,7 @@ namespace WpfCustomControlLibrary
         {
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(CustomButton),
-                new FrameworkPropertyMetadata(typeof(CustomButton))
+                new FrameworkPropertyMetadata(typeof(Button))
             );
         }
 
