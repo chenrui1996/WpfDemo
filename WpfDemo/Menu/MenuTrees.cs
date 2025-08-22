@@ -124,6 +124,33 @@ namespace WpfDemo.Menu
             },
             new MenuTreeItem
             {
+                Label = "数据处理",
+                Children =
+                [
+                    new MenuTreeItem
+                    {
+                        Label = "系统配置文件",
+                        ContentType = typeof(Views.Pages.SystemConfig),
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "文件存储",
+                        ContentType = typeof(Views.Pages.FileStorage),
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "数据库存储",
+                        ContentType = typeof(Views.Pages.DatabaseStorage),
+                    },
+                    new MenuTreeItem
+                    {
+                        Label = "Http请求",
+                        ContentType = typeof(Views.Pages.HttpRequest),
+                    },
+                ],
+            },
+            new MenuTreeItem
+            {
                 Label = "生成测试",
                 Children =
                 [

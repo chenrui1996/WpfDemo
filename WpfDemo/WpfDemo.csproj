@@ -19,6 +19,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="LiveCharts.Core" Version="0.9.8" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="9.0.7" />
     <PackageReference Include="Microsoft.Msagl" Version="1.1.6" />
     <PackageReference Include="Microsoft.Msagl.Drawing" Version="1.1.6" />
@@ -26,6 +27,7 @@
     <PackageReference Include="Msagl.WpfGraphControl" Version="1.2.1" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.1" />
     <PackageReference Include="VirtualizingWrapPanel" Version="2.3.0" />
   </ItemGroup>
 

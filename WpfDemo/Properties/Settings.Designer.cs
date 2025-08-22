@@ -22,5 +22,29 @@ namespace WpfDemo.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SettingTest")]
+        public string SettingTest {
+            get {
+                return ((string)(this["SettingTest"]));
+            }
+            set {
+                this["SettingTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Index")]
+        public string CurrentMenu {
+            get {
+                return ((string)(this["CurrentMenu"]));
+            }
+            set {
+                this["CurrentMenu"] = value;
+            }
+        }
     }
 }

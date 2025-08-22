@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using WpfDemo.Menu;
 using WpfDemo.Models;
 
 namespace WpfDemo.ViewModels
@@ -10,7 +11,12 @@ namespace WpfDemo.ViewModels
             SetMenuTree();
 
             //HomePage放在首位
-            SelectedTreeItem = _menuTrees.FirstOrDefault();
+            var currentMenu = Properties.Settings.Default.CurrentMenu;
+            SelectedTreeItem =
+                _menuTrees
+                    .SelectMany(r => r.GetAllChildren())
+                    .FirstOrDefault(r => (r.ContentType?.Name ?? "") == currentMenu)
+                ?? _menuTrees.FirstOrDefault();
 
             HomeCommand = new RelayCommandImplementation(_ =>
             {
@@ -139,6 +145,9 @@ namespace WpfDemo.ViewModels
                             }
                             //存放当前页的上一页作为历史记录
                             _menuTreeIteHistory = _selectedTreeItem;
+                            Properties.Settings.Default.CurrentMenu =
+                                _selectedTreeItem.ContentType?.Name ?? string.Empty;
+                            Properties.Settings.Default.Save();
                         }
                         SetBreadcrumb();
                     }

@@ -118,5 +118,17 @@ namespace WpfDemo.Models
             Content = null;
             Content = CreateContent(ContentType);
         }
+
+        public IEnumerable<MenuTreeItem> GetAllChildren()
+        {
+            foreach (var child in Children)
+            {
+                yield return child;
+                foreach (var sub in child.GetAllChildren())
+                {
+                    yield return sub;
+                }
+            }
+        }
     }
 }

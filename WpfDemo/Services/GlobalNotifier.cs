@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Input;
+using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using WpfDemo.CustomControl;
 
@@ -70,6 +71,15 @@ namespace WpfDemo.Services
                 };
 
                 await DialogHost.Show(messageDialog, "RootDialog");
+            });
+        }
+
+        public static async Task ShowForm(object formModel, ICommand command)
+        {
+            await System.Windows.Application.Current.Dispatcher.Invoke(async () =>
+            {
+                var form = new CustomFormDialog { FormModel = formModel, ConfirmCommand = command };
+                await DialogHost.Show(form, "RootDialog");
             });
         }
     }

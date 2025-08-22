@@ -215,6 +215,33 @@ namespace WpfDemo.CustomControl
                     IsReadOnly = !(attr?.IsEditable ?? false),
                 };
             }
+            else if (
+                prop.PropertyType == typeof(decimal)
+                || prop.PropertyType == typeof(double)
+                || prop.PropertyType == typeof(int)
+            )
+            {
+                var templateColumn = new DataGridTemplateColumn { Header = header };
+
+                // 显示模板
+                var textBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+                textBlockFactory.SetBinding(TextBlock.TextProperty, binding);
+                templateColumn.CellTemplate = new DataTemplate { VisualTree = textBlockFactory };
+
+                // 编辑模板 (DecimalUpDown)
+                var decimalUpDownFactory = new FrameworkElementFactory(
+                    typeof(MaterialDesignThemes.Wpf.DecimalUpDown)
+                );
+                decimalUpDownFactory.SetBinding(
+                    MaterialDesignThemes.Wpf.DecimalUpDown.ValueProperty,
+                    binding
+                );
+                templateColumn.CellEditingTemplate = new DataTemplate
+                {
+                    VisualTree = decimalUpDownFactory,
+                };
+                return templateColumn;
+            }
             else
             {
                 return new DataGridTextColumn

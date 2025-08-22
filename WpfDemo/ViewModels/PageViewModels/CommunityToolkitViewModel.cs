@@ -1,15 +1,16 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WpfDemo.Services;
 using static WpfDemo.Attributes.CustomDataGridAttributes;
 
 namespace WpfDemo.ViewModels.PageViewModels
 {
+    [GridEntity(Label = "用户")]
     [EnableSelection]
-    public partial class UserModel: ObservableValidator
+    public partial class UserModel : ObservableValidator
     {
         [ObservableProperty]
         [NotifyDataErrorInfo]
@@ -26,8 +27,8 @@ namespace WpfDemo.ViewModels.PageViewModels
 
         [property: GridColumn(IsEditable = true, Label = "性别")]
         [ObservableProperty]
-        private Gender gender; 
-        
+        private Gender gender;
+
         [property: GridColumn(IsVisible = false)]
         public Array GenderList => Enum.GetValues(typeof(Gender));
 
@@ -64,34 +65,40 @@ namespace WpfDemo.ViewModels.PageViewModels
         private Gender gender;
 
         [ObservableProperty]
-        private UserModel userModel = new() { Name = "Seven Chen", Age = 20, Gender = Gender.Male };
+        private UserModel userModel = new()
+        {
+            Name = "Seven Chen",
+            Age = 20,
+            Gender = Gender.Male,
+        };
 
         [ObservableProperty]
-        private ObservableCollection<UserModel> userModels = [
-               new UserModel
-                {
-                    Name = "张三",
-                    Age = 16,
-                    Gender = Gender.Male,
-                },
-                new UserModel
-                {
-                    Name = "李四",
-                    Age = 17,
-                    Gender = Gender.Female,
-                },
-                new UserModel
-                {
-                    Name = "王五",
-                    Age = 18,
-                    Gender = Gender.Male,
-                },
-                new UserModel
-                {
-                    Name = "刘六",
-                    Age = 19,
-                    Gender = Gender.Female,
-                },
+        private ObservableCollection<UserModel> userModels =
+        [
+            new UserModel
+            {
+                Name = "张三",
+                Age = 16,
+                Gender = Gender.Male,
+            },
+            new UserModel
+            {
+                Name = "李四",
+                Age = 17,
+                Gender = Gender.Female,
+            },
+            new UserModel
+            {
+                Name = "王五",
+                Age = 18,
+                Gender = Gender.Male,
+            },
+            new UserModel
+            {
+                Name = "刘六",
+                Age = 19,
+                Gender = Gender.Female,
+            },
         ];
 
         [ObservableProperty]
@@ -133,16 +140,16 @@ namespace WpfDemo.ViewModels.PageViewModels
         {
             Age1--;
         }
-        private bool CanMinus1() => Age1 > 0;
 
+        private bool CanMinus1() => Age1 > 0;
 
         [RelayCommand(CanExecute = nameof(CanPlus))]
         private void Plus()
         {
             Age1++;
         }
-        private bool CanPlus() => Age1 < 20;
 
+        private bool CanPlus() => Age1 < 20;
 
         [RelayCommand]
         private void TestPara(string? para)
