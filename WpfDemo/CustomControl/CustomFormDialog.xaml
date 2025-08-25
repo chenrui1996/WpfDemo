@@ -19,10 +19,10 @@
             Header=""
             Style="{StaticResource MaterialDesignGroupBox}">
 
-            <Grid>
+            <Grid Width="480">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="80" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <Border
                     Grid.Row="0"
@@ -33,6 +33,7 @@
 
                 <StackPanel
                     Grid.Row="1"
+                    Margin="20,0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
                     <Button

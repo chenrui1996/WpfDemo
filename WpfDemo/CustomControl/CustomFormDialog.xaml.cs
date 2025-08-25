@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CommunityToolkit.Mvvm.Input;
 using WpfDemo.Services;
 using static WpfDemo.Attributes.CustomDataGridAttributes;
 
@@ -59,7 +60,35 @@ namespace WpfDemo.CustomControl
         public System.Windows.Input.ICommand ConfirmCommand
         {
             get => (System.Windows.Input.ICommand)GetValue(ConfirmCommandProperty);
-            set => SetValue(ConfirmCommandProperty, value);
+            set
+            {
+                if (value == null)
+                {
+                    SetValue(
+                        ConfirmCommandProperty,
+                        MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand
+                    );
+                }
+                else
+                {
+                    // 包装一层，确保外部命令和默认命令都执行
+                    SetValue(
+                        ConfirmCommandProperty,
+                        new RelayCommand<object>(o =>
+                        {
+                            // 先执行外部命令
+                            if (value.CanExecute(o))
+                                value.Execute(o);
+
+                            // 再执行默认操作
+                            MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(
+                                null,
+                                this
+                            );
+                        })
+                    );
+                }
+            }
         }
 
         public static readonly DependencyProperty ConfirmCommandProperty =
@@ -81,7 +110,7 @@ namespace WpfDemo.CustomControl
             var props = model
                 .GetType()
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.GetCustomAttribute<GridColumnAttribute>()?.IsVisible == true);
+                .Where(p => p.GetCustomAttribute<GridColumnAttribute>()?.IsAddable == true);
 
             foreach (var prop in props)
             {
@@ -107,12 +136,14 @@ namespace WpfDemo.CustomControl
                         }
                     );
                     FormPanel.Children.Add(cb);
+                    continue;
                 }
-                else
+
+                if (prop.PropertyType == typeof(int))
                 {
-                    var tb = new TextBox();
-                    tb.SetBinding(
-                        TextBox.TextProperty,
+                    var cb = new MaterialDesignThemes.Wpf.DecimalUpDown();
+                    cb.SetBinding(
+                        MaterialDesignThemes.Wpf.DecimalUpDown.ValueProperty,
                         new Binding(prop.Name)
                         {
                             Source = model,
@@ -120,8 +151,37 @@ namespace WpfDemo.CustomControl
                             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                         }
                     );
-                    FormPanel.Children.Add(tb);
+                    FormPanel.Children.Add(cb);
+                    continue;
                 }
+
+                if (prop.PropertyType.IsEnum)
+                {
+                    var cb = new ComboBox() { ItemsSource = Enum.GetValues(prop.PropertyType) };
+                    cb.SetBinding(
+                        ComboBox.SelectedItemProperty,
+                        new Binding(prop.Name)
+                        {
+                            Source = model,
+                            Mode = BindingMode.TwoWay,
+                            UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                        }
+                    );
+                    FormPanel.Children.Add(cb);
+                    continue;
+                }
+
+                var tb = new TextBox();
+                tb.SetBinding(
+                    TextBox.TextProperty,
+                    new Binding(prop.Name)
+                    {
+                        Source = model,
+                        Mode = BindingMode.TwoWay,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    }
+                );
+                FormPanel.Children.Add(tb);
             }
         }
     }

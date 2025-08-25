@@ -20,6 +20,7 @@ namespace WpfDemo.ViewModels.PageViewModels
         [ObservableProperty]
         private ObservableCollection<UserModel> userModels = [];
 
+        [RelayCommand]
         private void Refresh()
         {
             UserModels =
@@ -42,7 +43,7 @@ namespace WpfDemo.ViewModels.PageViewModels
             if (sender is UserModel user)
             {
                 SqliteHelper.Instance.ExecuteQuery(
-                    $"UPDATE Users SET Name = {user.Name}, Age = {user.Age}, Gender = {user.Gender}"
+                    $"UPDATE Users SET Name = '{user.Name}', Age = {user.Age}, Gender = {(int)user.Gender} WHERE ID = {user.Id}"
                 );
             }
         }
@@ -54,10 +55,10 @@ namespace WpfDemo.ViewModels.PageViewModels
         private UserModel createdModel = new();
 
         [RelayCommand]
-        private void AddUserEntity()
+        private void AddUserEntity(UserModel createdModel)
         {
             SqliteHelper.Instance.ExecuteQuery(
-                $"INSERT INTO Users (Name, Age, Gender) VALUES (' {CreatedModel.Name}', {CreatedModel.Age}, '{CreatedModel.Gender}');"
+                $"INSERT INTO Users (Name, Age, Gender) VALUES (' {createdModel.Name}', {createdModel.Age}, '{(int)createdModel.Gender}');"
             );
             Refresh();
         }
@@ -74,7 +75,10 @@ namespace WpfDemo.ViewModels.PageViewModels
             if (SelectedUsers.Count > 0)
             {
                 SqliteHelper.Instance.ExecuteQuery(
-                    string.Join("", SelectedUsers.Select(s => $"DELETE FROM Users WHERE Id = 2;"))
+                    string.Join(
+                        "",
+                        SelectedUsers.Select(s => $"DELETE FROM Users WHERE Id = {s.Id};")
+                    )
                 );
                 Refresh();
             }

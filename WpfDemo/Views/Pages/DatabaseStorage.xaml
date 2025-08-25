@@ -33,10 +33,19 @@
                             Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                         <Button
                             Margin="10"
+                            Background="DarkRed"
                             Command="{Binding DeleteUsersCommand}"
                             Content="删除"
                             Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
+                        <Button
+                            Margin="10"
+                            Background="DarkSeaGreen"
+                            BorderBrush="DarkGreen"
+                            Command="{Binding RefreshCommand}"
+                            Content="刷新"
+                            Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
                     </StackPanel>
+
                     <customcontrol:CustomDataGrid SelectedItems="{Binding SelectedUsers, Mode=TwoWay}" SourceItems="{Binding UserModels, Mode=TwoWay}" />
                 </StackPanel>
             </GroupBox>

@@ -13,19 +13,28 @@ namespace WpfDemo.ViewModels.PageViewModels
     public partial class UserModel : ObservableValidator
     {
         [ObservableProperty]
+        [property: GridColumn(Label = "ID")]
+        private int id;
+
+        [ObservableProperty]
         [NotifyDataErrorInfo]
         [Required(ErrorMessage = "姓名不能为空")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "姓名长度必须在 2 到 20 个字符之间")]
-        [property: GridColumn(IsEditable = true, Label = "姓名")]
+        [property: GridColumn(IsAddable = true, IsEditable = true, Label = "姓名")]
         private string? name;
 
         [NotifyDataErrorInfo]
         [Range(0, 18, ErrorMessage = "年龄必须在 0 到 18 之间")]
-        [property: GridColumn(IsEditable = true, Label = "年龄")]
+        [property: GridColumn(IsAddable = true, IsEditable = true, Label = "年龄")]
         [ObservableProperty]
         private int age;
 
-        [property: GridColumn(IsEditable = true, Label = "性别")]
+        [property: GridColumn(
+            IsAddable = true,
+            IsEditable = true,
+            Label = "性别",
+            Type = typeof(Gender)
+        )]
         [ObservableProperty]
         private Gender gender;
 

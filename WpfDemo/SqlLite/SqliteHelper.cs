@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using SQLitePCL;
+using WpfDemo.ViewModels.PageViewModels;
+using static WpfDemo.Attributes.CustomDataGridAttributes;
 
 namespace WpfDemo.SqlLite
 {
@@ -124,6 +127,12 @@ namespace WpfDemo.SqlLite
                 {
                     if (table.Columns.Contains(prop.Name) && row[prop.Name] != DBNull.Value)
                     {
+                        var attr = prop.GetCustomAttribute<GridColumnAttribute>();
+                        if (attr?.Type != null)
+                        {
+                            prop.SetValue(entity, Enum.ToObject(attr.Type, row[prop.Name]));
+                            continue;
+                        }
                         prop.SetValue(
                             entity,
                             Convert.ChangeType(row[prop.Name], prop.PropertyType)
