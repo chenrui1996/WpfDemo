@@ -164,6 +164,11 @@ namespace WpfDemo.Menu
                         Label = "测试页面2",
                         ContentType = typeof(Views.Pages.Test2),
                     },
+                    new MenuTreeItem
+                    {
+                        Label = "测试页面3",
+                        ContentType = typeof(Views.Pages.Test3),
+                    },
                 ],
             },
         ];
